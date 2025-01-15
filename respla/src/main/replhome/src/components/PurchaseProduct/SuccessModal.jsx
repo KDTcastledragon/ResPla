@@ -43,7 +43,7 @@ function SuccessModal({ setSuccessModalOpen, closeTime }) {
                 <div className='successModalTitle'>
                     {orderType === 'normal' ? <span>상품 구매 성공</span>
                         : orderType === 'extend' ? <span>연장 구매 성공</span>
-                            : 'Error'}
+                            : <span>구매 성공</span>}
                 </div>
                 <div className='successModalButtonBox'>
                     <button onClick={() => navigator('/')}>홈으로</button>

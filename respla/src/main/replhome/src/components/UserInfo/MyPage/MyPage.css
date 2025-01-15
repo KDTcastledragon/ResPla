@@ -10,20 +10,21 @@
 }
 
 .myPageMenuButton {
-    width: 1300px;
+    width: 1100px;
     height: 90%;
     /* background-color: violet; */
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     align-items: center;
-    gap: 190px;
+    justify-content: center;
 }
 
 .myPageMenuButton>button {
     display: inline-block;
-    width: 200px;
-    height: 400px;
-    font-size: 42px;
+    justify-self: center;
+    width: 300px;
+    height: 170px;
+    font-size: 33px;
     border: none;
     border-radius: 10px;
     font-weight: bold;
@@ -40,6 +41,10 @@
 
 .myPageMenuButton>button:nth-child(3) {
     background-color: rgb(236, 165, 248);
+}
+
+.myPageMenuButton>button:nth-child(4) {
+    background-color: rgba(185, 185, 185, 0.597);
 }
 
 .myPageMenuButton>button:hover {

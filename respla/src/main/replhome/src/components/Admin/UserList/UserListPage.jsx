@@ -106,7 +106,7 @@ function UserListPage() {
         <>
             <div className='UserListPageContainer'>
                 <div className='userListSearchBox'>
-                    <span className='userListSearchTitle'>유저 ID</span>
+                    <span className='userListSearchTitle'>유저 정보</span>
                     <input
                         type="text"
                         className='userListSearchInputText'

@@ -16,6 +16,7 @@ function MainHomePage() {
     const loginID = sessionStorage.getItem("loginID");
     const [cautionContainerOpen, setCautionContainerOpen] = useState(false);
     const [openEntryDoor, setOpenEntryDoor] = useState(false);
+    const [entryDoorComment, setEntryDoorComment] = useState('');
 
     const [isCurrentUseModal, setIsCurrentUseModal] = useState({        // 기존에 false만 담았던 boolean타입에서 Object타입으로 변경.
         isOpen: false,
@@ -276,13 +277,22 @@ function MainHomePage() {
         setOpenEntryDoor(true);
         const data = { id: loginID }
         axios
-            .post('/user/openDoor', data)
+            .post('/user/entryDoor', data)
             .then((r) => {
                 setOpenEntryDoor(true);
+
+                if (r.data === true) {
+                    setEntryDoorComment('출입문이 열립니다.');
+                    console.log(r);
+                } else {
+                    setEntryDoorComment('입실 이용자만 가능합니다.');
+                    console.log(r);
+                }
             }).catch((e) => {
                 // alert(`입실후 이용해주세요.`);
             })
     }
+
     //===================================================================================================================
     return (
         <div className='MainHomePageContainer'>
@@ -290,11 +300,8 @@ function MainHomePage() {
                 (
                     <>
                         <div className='mainHomePageNoticeBox'>
-                            <button style={{ width: '300px', height: '100px' }} onClick={() => setCautionContainerOpen(true)}>카페이용 주의사항</button>
+                            <button onClick={() => setCautionContainerOpen(true)}>카페이용 주의사항</button>
                             <button onClick={handleEntryDoor}>출입문 열기</button>
-                            {/* <button style={{ width: '300px', height: '100px' }} onClick={() => purchasePageImSI('m')}>시간권</button> */}
-                            {/* <button style={{ width: '300px', height: '100px' }} onClick={() => purchasePageImSI('d')}>기간권</button> */}
-                            {/* <button style={{ width: '300px', height: '100px' }} onClick={() => purchasePageImSI('f')}>고정석</button> */}
                         </div>
 
                         <div className='homeBodyLoginedMenu'>
@@ -363,7 +370,9 @@ function MainHomePage() {
             {openEntryDoor && (
                 <div className='openEntryDoorContainerBackGround' onClick={() => setOpenEntryDoor(false)}>
                     <div className='openEntryDoorContainer'>
-                        <span>출입문이 열립니다.</span>
+                        <div>
+                            <span>{entryDoorComment}</span>
+                        </div>
                     </div>
                 </div>
             )

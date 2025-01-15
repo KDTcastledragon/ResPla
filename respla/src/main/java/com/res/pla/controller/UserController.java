@@ -281,6 +281,21 @@ public class UserController {
 		return ResponseEntity.ok().body(userInfo);
 	}
 
+	//====[9. 이용 금지 처분]========================================================================================
+	@PostMapping("/entryDoor")
+	public ResponseEntity<?> entryDoor(@RequestBody Map<String, String> data) {
+		log.info("");
+		log.info("entryDoorIdData : {}", data);
+
+		String id = data.get("id");
+
+		boolean isNowCheckedIn = seatfacade.isUserCheckedIn(id);
+
+		log.info(" : {}", isNowCheckedIn);
+
+		return ResponseEntity.ok().body(isNowCheckedIn);
+	}
+
 	//====[관리자 로그인]======================================================================================================
 	@PostMapping("/adminLogIn")
 	public ResponseEntity<?> adminLogIn(@RequestBody AdminDTO data) {

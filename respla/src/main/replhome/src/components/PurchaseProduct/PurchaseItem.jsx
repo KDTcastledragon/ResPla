@@ -305,9 +305,12 @@ function PurchaseItem({ product_code, time_value, day_value, price, sell_count }
                             <span>{conflictPType === 'd' ? '기간권' : conflictPType === 'f' ? '고정석' : '오류'}</span>
                             <span>&nbsp;</span>
                             <span>{`[`}</span>
-                            <span>{conflictDayValue}</span>
+                            <span>{conflictDayValue / 24}</span>
                             <span>일</span>
                             <span>{`]`}</span>
+                            <span>{`(`}</span>
+                            <span>{conflictDayValue}</span>
+                            <span>시간{`)`}</span>
                             <span>&nbsp;&nbsp;&nbsp;</span>
                             <span> : </span>
                             <span>&nbsp;&nbsp;&nbsp;</span>
