@@ -344,16 +344,6 @@ function MainHomePage() {
                         </div>
 
                         <div className='LogoutedUserInfoBoxContainer'>
-                            {/* <div className='imSiBox'>
-                                {
-                                    ulist.map((d, i) => (
-                                        <button onClick={() => logInButton(`${d.id}`)}
-                                            style={{ width: '80px', height: '70px' }}>{d.id}</button>
-
-                                    ))
-                                }
-                            </div> */}
-
                             <div className='logoutedUserLoginLink'><Link to='/LogInPage'>로그인</Link></div>
                             <div className='logoutedUserJoinMemberLink'><Link to='/JoinPage'>회원가입</Link></div>
                         </div>

@@ -26,8 +26,17 @@
 
 .mainHomePageNoticeBox>button:nth-child(1) {
     width: 300px;
-    height: 100px;
+    height: 50px;
+    cursor: pointer;
+    background-color: rgb(197, 209, 172);
+    font-size: 25px;
+    border: none;
 }
+
+.mainHomePageNoticeBox>button:nth-child(1):hover {
+    background-color: rgb(171, 185, 140);
+}
+
 
 .mainHomePageNoticeBox>button:nth-child(2) {
     display: inline-block;
@@ -38,11 +47,12 @@
     font-size: 44px;
     font-weight: bold;
     cursor: pointer;
+    background-color: rgb(217, 215, 215);
 
 }
 
 .mainHomePageNoticeBox>button:nth-child(2):hover {
-    background-color: rgb(133, 133, 133);
+    background-color: rgb(112, 112, 112);
 }
 
 

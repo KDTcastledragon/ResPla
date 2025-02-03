@@ -74,7 +74,7 @@ function SeatUnitControlModal(props) {
             <div className="SeatModalContainer">
                 {sItem === 'click' && props.id !== null ?
                     <div className="seatModalContentBox">
-                        <div>
+                        <div className='adminSeatNumber'>
                             <span>좌석 번호 </span>
                             <span> : </span>
                             <span>{props.seat_num}</span>

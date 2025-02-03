@@ -43,8 +43,8 @@ function PurchaseItem({ product_code, time_value, day_value, price, sell_count }
     const [startDateTime, setStartDateTime] = useState(getLocalDatetime);
 
     const startDateFormat = new Date(startDateTime);
-    // const calculatedEndDate = new Date(startDateFormat.getTime() + (day_value * 60 * 60 * 1000) - (offset * 60000));  // Hours 단위에 맞게 계산.
-    const calculatedEndDate = new Date(startDateFormat.getTime() + (day_value * 1000) - (offset * 60000));  // 임시로 초단위.
+    const calculatedEndDate = new Date(startDateFormat.getTime() + (day_value * 60 * 60 * 1000) - (offset * 60000));  // Hours 단위에 맞게 계산.
+    // const calculatedEndDate = new Date(startDateFormat.getTime() + (day_value * 1000) - (offset * 60000));  // 임시로 초단위.
     // const calculatedEndDate = new Date(startDateFormat);
     // calculatedEndDate.setDate(startDateFormat.getDate() + day_value);  // 일수를 더합니다.
 
@@ -58,8 +58,8 @@ function PurchaseItem({ product_code, time_value, day_value, price, sell_count }
     //===[1. 날짜변경시 종료날짜 재계산]==================================================================================================================
     function calculateEndDateTime(changedStartTime) {
         const changedstartDateFormat = new Date(changedStartTime);
-        // const calculatedchangedEndDate = new Date(changedstartDateFormat.getTime() + (day_value * 60 * 60 * 1000) - (offset * 60000));  // Hours 단위에 맞게 계산.
-        const calculatedchangedEndDate = new Date(changedstartDateFormat.getTime() + (day_value * 1000) - (offset * 60000));
+        const calculatedchangedEndDate = new Date(changedstartDateFormat.getTime() + (day_value * 60 * 60 * 1000) - (offset * 60000));  // Hours 단위에 맞게 계산.
+        // const calculatedchangedEndDate = new Date(changedstartDateFormat.getTime() + (day_value * 1000) - (offset * 60000)); // 임시 초단위.
         const getChangedEndDateLocalTime = calculatedchangedEndDate.toISOString().slice(0, 16);
         setEndDateTime(getChangedEndDateLocalTime);
     }
@@ -80,6 +80,8 @@ function PurchaseItem({ product_code, time_value, day_value, price, sell_count }
 
     //===[3. 시간권 바로 구매 함수]===================================================================================
     function purchaseTimePass() {
+        setOrderType('normal');
+        sessionStorage.setItem('order_type', 'normal');
         setStartDateTime(null);
         setEndDateTime(null);
         setPaymentModalOpen(true);
@@ -103,17 +105,12 @@ function PurchaseItem({ product_code, time_value, day_value, price, sell_count }
         axios
             .post('/product/isDateConflict', requestData)
             .then(r => {
-                console.log(`기간충돌 없음. 정상작동. ${r.data}`);
+                // console.log(`기간충돌 없음. 정상작동. ${r.data}`);
 
                 switch (r.status) {
                     case 200:
                         return new Promise((resolve) => {
                             const { extStartDate, extEndDate } = r.data;
-                            // console.log(`제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발`);
-                            // console.log(`${orderType}`);
-                            // console.log(`ext시작: ${extStartDate}`);
-                            // console.log(`ext끝: ${extEndDate}`);
-                            // console.log(`제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발제발`);
                             setExtStartDate(extStartDate);
                             setExtEndDate(extEndDate);
                             resolve();
@@ -209,14 +206,17 @@ function PurchaseItem({ product_code, time_value, day_value, price, sell_count }
             {ptype === 'm' ?
                 <>
                     <div className='timePassInfoTitle'>
-                        <div><span>{time_value / 60} 시간</span></div>
-
-                        <div className='timePassPrice'>
-                            <span>{price !== null ? price.toLocaleString() : null}</span>
-                            <span> 원</span>
+                        <div className='timePassTimeValue'>
+                            <span>{time_value / 60} </span>
+                            <span>시간</span>
                         </div>
 
-                        <div className='purchaseDayPassButtonBox'>
+                        <div className='timePassPrice'>
+                            <span>{price !== null ? price.toLocaleString() : null} </span>
+                            <span>원</span>
+                        </div>
+
+                        <div className='purchaseTimePassButtonBox'>
                             <button onClick={purchaseTimePass}>상품구매</button>
                         </div>
                     </div>
@@ -225,8 +225,8 @@ function PurchaseItem({ product_code, time_value, day_value, price, sell_count }
                 : ptype === 'd' || ptype === 'f' ?
                     <>
                         <div className='dayPassInfoTitle'>
-                            {/* <span>{day_value / 24 < 300 ? `${day_value / 7 / 24} 주` : `1년`}</span> */}
-                            <span>{`${Math.floor(day_value / 24)} 일`}</span>
+                            <span>{`${Math.floor(day_value / 24 >= 28 ? day_value / 24 / 7 : day_value / 24)}`}</span>
+                            <span>{day_value / 24 >= 28 ? '주' : '일'}</span>
                         </div>
 
                         <div className='dayPassPrice'>
@@ -293,6 +293,7 @@ function PurchaseItem({ product_code, time_value, day_value, price, sell_count }
             )}
 
 
+            {/* 날짜충돌 Modal ==============================================================================================*/}
             {dateConflict === true && conflictStartDate !== null && conflictEndDate !== null && (
                 <div className='ConflictModalContainerBackGround'>
                     <div className='ConflictModalContainer'>
@@ -305,12 +306,12 @@ function PurchaseItem({ product_code, time_value, day_value, price, sell_count }
                             <span>{conflictPType === 'd' ? '기간권' : conflictPType === 'f' ? '고정석' : '오류'}</span>
                             <span>&nbsp;</span>
                             <span>{`[`}</span>
-                            <span>{conflictDayValue / 24}</span>
-                            <span>일</span>
+                            <span>{conflictDayValue / 24 >= 28 ? conflictDayValue / 24 / 7 : conflictDayValue / 24}</span>
+                            <span>{conflictDayValue / 24 >= 28 ? '주' : '일'}</span>
                             <span>{`]`}</span>
-                            <span>{`(`}</span>
-                            <span>{conflictDayValue}</span>
-                            <span>시간{`)`}</span>
+                            {/* <span>{`(`}</span> */}
+                            {/* <span>{conflictDayValue / 24}</span> */}
+                            {/* <span>시간{`)`}</span> */}
                             <span>&nbsp;&nbsp;&nbsp;</span>
                             <span> : </span>
                             <span>&nbsp;&nbsp;&nbsp;</span>

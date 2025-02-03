@@ -33,13 +33,13 @@ function AdminPageMenuBar() {
                 <Link to='/SalesStatusPage' onClick={() => selectMenu('sls')}>매출 분석</Link>
             </div>
 
-            <div className={`${selectedMenu === 'san' ? ' selectedAdminMenu' : ''}`}>
+            {/* <div className={`${selectedMenu === 'san' ? ' selectedAdminMenu' : ''}`}>
                 <Link to='/SeatManagementPage' onClick={() => selectMenu('san')}>좌석 이용 분석</Link>
             </div>
 
             <div className={`AdminPageMenuBarProductmanagement${selectedMenu === 'pmg' ? ' selectedAdminMenu' : ''}`}>
                 <Link to='/ProductManagementPage' onClick={() => selectMenu('pmg')}>상품 관리</Link>
-            </div>
+            </div> */}
 
         </div>
     )

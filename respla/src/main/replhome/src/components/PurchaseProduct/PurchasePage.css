@@ -6,9 +6,11 @@
 }
 
 .PurchasePageContainerTimePass {
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
     /* border: 2px solid blue; */
+    padding-left: 50px;
 }
 
 .PurchasePageContainerDayPass {

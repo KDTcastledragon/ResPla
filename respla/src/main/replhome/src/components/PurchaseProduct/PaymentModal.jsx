@@ -11,21 +11,21 @@ function PaymentModal({ product_code, p_type, time_value, day_value, price, star
 
     const loginID = sessionStorage.getItem('loginID');
 
-    const [selectedpaymentOption, setSelectedpaymentOption] = useState('LostArk');
+    const [selectedpaymentOption, setSelectedpaymentOption] = useState('');
 
     function formatDate(dateString) {
         return moment(dateString).format('YYYY-MM-DD # HH:mm:ss');
     }
 
-    console.log("");
-    console.log(`■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■`);
-    console.log(`구매 타입 : ${order_type}`);
-    console.log(`상품코드 : ${product_code}`);
-    console.log(`시작일 : ${start_date}`);
-    console.log(`종료일 : ${end_date}`);
-    console.log(`구매 수단 : ${selectedpaymentOption}`);
-    console.log(`■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■`);
-    console.log("");
+    // console.log("");
+    // console.log(`■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■`);
+    // console.log(`구매 타입 : ${order_type}`);
+    // console.log(`상품코드 : ${product_code}`);
+    // console.log(`시작일 : ${start_date}`);
+    // console.log(`종료일 : ${end_date}`);
+    // console.log(`구매 수단 : ${selectedpaymentOption}`);
+    // console.log(`■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■`);
+    // console.log("");
 
 
 
@@ -117,9 +117,10 @@ function PaymentModal({ product_code, p_type, time_value, day_value, price, star
             <div className='PaymentModalContainer'>
                 <div className='paymentModalTitle'>
                     <span>{order_type === 'normal' ? '일반 구매'
-                        : order_type === 'extend' ? '연장 구매' : '오류'}
+                        : order_type === 'extend' ? '연장 구매' : 'errorrr'}
                     </span>
                 </div>
+
                 <div className='paymentProductBox'>
                     <table className='paymentProductInfoTable'>
                         <thead>

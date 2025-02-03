@@ -75,7 +75,7 @@ function AdminPage() {
                                     : authority === 'superAdmin' && admcode === 'd14' ? '일반 관리자'
                                         : '오류'}</span>
                         </div>
-                        {authority === 'superAdmin' && admcode === 's9811' ? <button onClick={() => setOpenCode(true)}>코드</button> : null}
+                        {/* {authority === 'superAdmin' && admcode === 's9811' ? <button onClick={() => setOpenCode(true)}>코드</button> : null} */}
                         <button onClick={logout}>로그아웃</button>
                     </div>
 
@@ -100,10 +100,10 @@ function AdminPage() {
                                         </div>
                                     ))}
                                 </div>
-                                <div className='adminCreateButton'><button>관리자 생성</button></div>
+                                {/* <div className='adminCreateButton'><button>관리자 생성</button></div> */}
                             </div>
 
-                            <div className='adminManagementHistory'>
+                            {/* <div className='adminManagementHistory'>
                                 <div><span>카페 관리 기록</span></div>
                                 {adminHistory.map((d, i) => (
                                     <div key={i}>
@@ -122,7 +122,7 @@ function AdminPage() {
 
                                 ))}
 
-                            </div>
+                            </div> */}
                         </>
                         : null
                     }

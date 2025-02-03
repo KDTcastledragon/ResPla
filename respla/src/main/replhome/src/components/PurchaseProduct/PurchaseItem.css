@@ -1,25 +1,57 @@
 .PurchaseItemContainerTimePass {
-    background-color: burlywood;
-    border: 2px solid burlywood;
-    width: 200px;
-    height: 480px;
+    background-color: rgb(67, 225, 130);
+    width: 300px;
+    height: 200px;
     text-align: center;
 }
 
 .PurchaseItemContainerDayPass,
 .PurchaseItemContainerFixPass {
     width: 330px;
-    height: 500px;
+    height: 540px;
     text-align: center;
-    background-color: rgb(250, 255, 178);
+    background-color: rgb(131, 118, 255);
 }
 
 .PurchaseItemContainerFixPass {
-    background-color: rgb(225, 194, 255);
+    background-color: rgb(228, 255, 165);
 }
 
-/* ==[ 기간권 / 고정석 타이틀 ]==================================================================================== */
+/* ==[ 시간권 타이틀 ]==================================================================================== */
+.timePassTimeValue {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 22px;
+    margin-top: 8px;
+}
 
+.timePassPrice {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 23px;
+}
+
+.purchaseTimePassButtonBox {
+    width: 250px;
+    height: 60px;
+    margin: auto;
+}
+
+.purchaseTimePassButtonBox>button {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(245, 245, 245);
+    font-size: 30px;
+}
+
+.purchaseTimePassButtonBox>button:hover {
+    background-color: rgb(43, 43, 43);
+    color: white;
+    cursor: pointer;
+}
 
 
 /* ==[ 기간권 / 고정석 타이틀 ]==================================================================================== */
@@ -31,7 +63,7 @@
     margin-top: 30px;
 }
 
-.dayPassInfoTitle>span:nth-child(1) {
+.dayPassInfoTitle>span {
     font-size: 30px;
     font-weight: bold;
 }
@@ -146,12 +178,20 @@
     width: 100%;
     height: 100%;
     border: none;
-    background-color: gray;
+    border-radius: 10px;
+    background-color: rgb(245, 245, 245);
     font-size: 30px;
 }
 
+.purchaseDayPassButtonBox>button:nth-child(2) {
+    background-color: rgb(207, 207, 207);
+    font-weight: bold;
+    margin-top: 20px;
+}
+
 .purchaseDayPassButtonBox>button:hover {
-    background-color: white;
+    background-color: rgb(43, 43, 43);
+    color: white;
     cursor: pointer;
 }
 

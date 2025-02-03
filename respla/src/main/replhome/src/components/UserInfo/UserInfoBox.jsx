@@ -77,7 +77,7 @@ function UserInfoBox(props) {
                                         <span>{`[`}&nbsp;</span>
                                         <span>
                                             {uData.p_type === 'm' ? (uData.time_value / 60)
-                                                : Math.floor(uData.day_value / 60 / 24)}
+                                                : Math.floor(uData.day_value / 24 >= 28 ? uData.day_value / 24 / 7 : uData.day_value / 24)}
                                         </span>
                                         <span>&nbsp;{uData.p_type === 'm' ? '시간' : '일'}</span>
                                         <span>&nbsp;{`]`}</span>
