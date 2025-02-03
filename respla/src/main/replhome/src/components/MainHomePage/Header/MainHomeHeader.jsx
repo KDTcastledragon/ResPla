@@ -8,8 +8,6 @@ import moment from 'moment';
 function MainHomeHeader() {
     const [loginID, setLoginID] = useState(sessionStorage.getItem('loginID'));
 
-    // const [time, setTime] = useState(new Date());
-
     useEffect(() => {
         const updateLoginID = () => {
             setLoginID(sessionStorage.getItem('loginID'));
@@ -24,41 +22,21 @@ function MainHomeHeader() {
         };
     }, []);
 
-    // =======[Clock]========================================================================================
-    // useEffect(() => {
-    //     const inTime = setInterval(() => {
-    //         setTime(new Date());
-    //     }, 1000);
-    //     return (() => clearInterval(inTime))
-    // }, []);
-
     const formatDate = (dateString) => {
-        return moment(dateString).format('YYYY-MM-DD / HH시 mm분 ss초');
+        return moment(dateString).format('YYYY-MM-DD # HH시 mm분 ss초');
     };
 
 
+    const [time, setTime] = useState(new Date());
+    // =======[Clock]========================================================================================
+    useEffect(() => {
+        console.log(`임시 시계 작동`);
 
-    // const [aeee, ssaeee] = useState('init');
-    // const [nu, setnu] = useState(0);
-    // function allClear() {
-    //     axios
-    //         .get(`/user/abcde`)
-    //         .then((r) => {
-    //             ssaeee('allClear');
-    //             setnu((prevNu) => {
-    //                 if (prevNu >= 9999) {
-    //                     return 0;  // 0으로 초기화하고 100을 추가한 값
-    //                 } else {
-    //                     return prevNu + 100;
-    //                 }
-    //             });
-    //         })
-    //         .catch((e) => {
-    //             alert(`FailedClear. Please Refactoring.`);
-    //             ssaeee(`FailedClear. Please Refactoring.`);
-    //         });
-    // }
-
+        const inTime = setInterval(() => {
+            setTime(new Date());
+        }, 1000);
+        return (() => clearInterval(inTime))
+    }, []);
 
     return (
         <>
@@ -78,19 +56,11 @@ function MainHomeHeader() {
                     </Link>
                 </div>
 
-                {/* <div>
-                    <h1>Clock</h1>
+                <div className='tempClock'>
+                    <span>현재 시각</span>
                     <span>{formatDate(time)}</span>
-                </div> */}
+                </div>
 
-                {/* <div>
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    <button style={{ width: '200px', height: '50px', backgroundColor: 'gray' }} onClick={allClear}>제품 & 자리 & 기록 AllClear</button>
-
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    <span style={{ width: '300px', height: '30px' }}>{aeee} {nu}</span>
-                </div> */}
             </div>
         </>
     )

@@ -1,4 +1,6 @@
 import './AdminPageHeader.css';
+
+import moment from 'moment';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -20,12 +22,27 @@ function AdminPageHeader() {
     //     };
     // }, []);
 
-    //====[adminMenu reset]================================================
+    const formatDate = (dateString) => {
+        return moment(dateString).format('YYYY-MM-DD # HH시 mm분 ss초');
+    };
+
+    //====[adminMenu reset]==================================================
     function moveAdminPage() {
         navi('/AdminPage');
         sessionStorage.setItem('adminMenu', null);
         window.location.reload();
     }
+
+    const [time, setTime] = useState(new Date());
+    // =======[Clock]========================================================================================
+    useEffect(() => {
+        console.log(`임시 시계 작동`);
+
+        const inTime = setInterval(() => {
+            setTime(new Date());
+        }, 1000);
+        return (() => clearInterval(inTime))
+    }, []);
 
 
     return (
@@ -47,6 +64,11 @@ function AdminPageHeader() {
                                 <span className='homeHeaderTitle'> RESPLA 스터디카페 관리자 페이지</span>
                             </button>
                         </div>
+                    </div>
+
+                    <div className='tempClock'>
+                        <span>현재 시각</span>
+                        <span>{formatDate(time)}</span>
                     </div>
                 </>
                 :
