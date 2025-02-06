@@ -22,6 +22,28 @@ function PurchaseHistory({ setOpenPurchaseHistory, loginID }) {
         return moment(dateString).format('YYYY-MM-DD / HH시 mm분 ss초');
     };
 
+    const paymentOptFormat = (payOpt) => {
+        switch (payOpt) {
+            case 'naverPay':
+                return '네이버페이';
+
+            case 'tossPay':
+                return '토스페이';
+
+            case 'kakaoPay':
+                return '카카오페이';
+
+            case 'bankTransfer':
+                return '무통장입금';
+
+            case 'mobilePay':
+                return '휴대폰결제';
+
+            default:
+                return 'etc';
+        }
+    }
+
 
     function closeModal() {
         setOpenPurchaseHistory(false);
@@ -41,7 +63,6 @@ function PurchaseHistory({ setOpenPurchaseHistory, loginID }) {
                             <th>구매일</th>
                             <th>가격</th>
                             <th>결제 수단</th>
-                            <th>환불</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -54,7 +75,10 @@ function PurchaseHistory({ setOpenPurchaseHistory, loginID }) {
                                     <div>
                                         <span>{d.p_type === 'm' ? '시간권' : d.p_type === 'd' ? '기간권' : d.p_type === 'f' ? '고정석' : 'null'}</span>
                                         <span>&nbsp;</span>
-                                        <span>{`(${d.p_type === 'm' ? d.time_value / 60 : Math.floor(d.day_value / 24 / 60)})`}</span>
+                                        <span>{`(`}</span>
+                                        <span>{d.p_type === 'm' ? d.time_value / 60 : Math.floor(d.day_value / 24)}</span>
+                                        <span>{d.p_type === 'm' ? '시간' : '일'}</span>
+                                        <span>{`)`}</span>
                                     </div>
                                     <div>
                                         <span>{d.upp_code}</span>
@@ -66,10 +90,7 @@ function PurchaseHistory({ setOpenPurchaseHistory, loginID }) {
                                     <span>{d.price !== null ? d.price.toLocaleString() : null}</span>
                                     <span>원</span>
                                 </td>
-                                <td>{d.payment}</td>
-                                <td>{d.refunded === true ? '환불처리'
-                                    : d.refunded === false ? <button>환불하기</button>
-                                        : '환불불가'}</td>
+                                <td>{paymentOptFormat(d.payment)}</td>
                             </tr>
                         ))}
                     </tbody>

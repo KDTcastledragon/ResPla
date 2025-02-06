@@ -43,9 +43,10 @@ function Seat(props) {
     }
 
     return (
-        <div className={props.id !== null && props.id === loginID ? 'seatMine'
-            : props.occupied === false ? 'SeatContainer'
-                : 'seatUsed'}
+        <div className={props.occupied == true && props.id !== null && props.id === loginID ? 'seatMine'
+            : props.occupied === false && props.id !== null && props.upp_code !== null ? 'seatUsed'
+                : 'SeatContainer'}
+
             onClick={menuType !== 'seatpresent' ? seatClick : null}>
 
             <div className='seatNum'>
@@ -54,21 +55,21 @@ function Seat(props) {
 
             <div className='seatPrseentState'>
 
-                {props.occupied === false ?
+                {props.occupied === true || (props.id !== null && props.upp_code !== null) ?
                     <>
-                        <div className='seatPrseentVacant'>
-
+                        <div className='seatPrseentOccupied'>
+                            <span>{props.id === loginID ? '본인좌석'
+                                : '사용중'}</span>
                         </div>
                     </>
 
-                    : props.occupied === true ?
+                    : props.occupied === false ?
+
                         <>
-                            <div className='seatPrseentOccupied'>
-                                <span>{props.id !== null && props.id === loginID ? '본인좌석'
-                                    : '사용중'}</span>
+                            <div className='seatPrseentVacant'>
+
                             </div>
                         </>
-
                         :
                         <>
                             <div>error</div>

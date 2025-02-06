@@ -19,8 +19,8 @@
 	    
 	   	<insert id="purchaseProduct" parameterType="map" keyProperty="upp_code">
 	   		<selectKey keyProperty="upp_code" resultType="String" order="BEFORE">
-        	SELECT concat(#{id}, '-' , #{product_code}, (SELECT p_type FROM product WHERE product_code = #{product_code}),
-                   			'-' , substring(date_format(now(), '%Y%m%d-%H%i%s'), 3)) AS upp_code
+        	SELECT concat(#{randomNumber}, #{product_code}, (SELECT p_type FROM product WHERE product_code = #{product_code}),
+                   			substring(date_format(now(), '%Y%m%d%H%i%s'), 3)) AS upp_code
    		 	</selectKey>
 			insert into user_purchased_product(upp_code , id , product_code , p_type , price , time_value , available_time ,
 			day_value, start_date , end_date , usable , payment , order_type)

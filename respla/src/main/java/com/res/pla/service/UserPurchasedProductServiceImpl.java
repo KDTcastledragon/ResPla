@@ -228,7 +228,7 @@ public class UserPurchasedProductServiceImpl implements UserPurchasedProductServ
 	@Override
 	public void calculateTimePass(String id, String upp_code) {
 		log.info("");
-		int minute = 10;
+		int minute = 1;
 
 		AtomicBoolean isFirstOperate = new AtomicBoolean(true);    // 첫 실행시 즉시 차감방지. (boolean은 익명함수 람다식에서 불가능.)
 

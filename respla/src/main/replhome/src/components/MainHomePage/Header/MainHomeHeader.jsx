@@ -61,14 +61,14 @@ function MainHomeHeader() {
                         <span className='homeHeaderTitle'> RESPLA 스터디카페 </span>
                     </Link>
                 </div>
-                {/* <div>
+                <div>
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <button style={{ width: '200px', height: '50px', backgroundColor: 'gray' }} onClick={allClear}>제품 & 자리 & 기록 AllClear</button>
 
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <span style={{ width: '300px', height: '30px' }}>{aeee} {nu}</span>
-                </div> */}
+                </div>
             </div>
         </>
     )

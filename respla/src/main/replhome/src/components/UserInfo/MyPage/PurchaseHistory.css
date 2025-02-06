@@ -34,12 +34,13 @@
 
 /* =====[table 전체 설정]============================================================= */
 .ph_table {
-    width: 1150px;
+    width: 1100px;
     height: 250px;
     margin: 0 auto;
     text-align: center;
     border-collapse: collapse;
     box-sizing: border-box;
+    table-layout: fixed;
 }
 
 .PurchaseHistoryContainer>table>tbody {
@@ -50,7 +51,7 @@
     border-left: 1px solid rgb(136, 136, 136);
     border-right: 1px solid rgb(136, 136, 136);
     border-bottom: 1px solid rgb(136, 136, 136);
-    background-color: rgb(241, 241, 241);
+    background-color: rgb(252, 238, 255);
 }
 
 .PurchaseHistoryContainer>table>thead,
@@ -60,7 +61,7 @@
 }
 
 .PurchaseHistoryContainer>table>thead {
-    background-color: rgb(211, 211, 211);
+    background-color: rgb(236, 165, 248);
     border-bottom: 2px solid black;
     font-size: 18px;
 }
@@ -70,14 +71,14 @@
 }
 
 .ph_table>tbody>tr:hover {
-    background-color: rgb(222, 222, 222) !important;
+    background-color: rgb(252, 238, 255) !important;
 }
 
 
 /* =====[테이블 너비 설정]=========================================================================================== */
 /* =====(1번째열)===== */
 .ph_thead>tr>th:nth-child(1) {
-    width: 170px;
+    width: 200px;
     height: 33px;
     /* background-color: red; */
 }
@@ -90,12 +91,12 @@
 
 /* =====(2번째열)===== */
 .ph_thead>tr>th:nth-child(2) {
-    width: 330px;
+    width: 300px;
     /* background-color: orange; */
 }
 
 .ph_tbody>tr>td:nth-child(2) {
-    width: 330px;
+    width: 300px;
     /* background-color: orange; */
 }
 
@@ -112,29 +113,20 @@
 
 /* =====(4번째열)===== */
 .ph_thead>tr>th:nth-child(4) {
-    width: 130px;
+    width: 180px;
     /* background-color: green; */
 }
 
 .ph_tbody>tr>td:nth-child(4) {
-    width: 130px;
+    width: 170px;
     /* background-color: green; */
 }
 
-/* =====(4번째열)===== */
-.ph_thead>tr>th:nth-child(5) {
-    width: 130px;
-    /* background-color: blue; */
-}
-
-.ph_tbody>tr>td:nth-child(5) {
-    width: 130px;
-    /* background-color: blue; */
-}
-
 /* =====(5번째열:scroll보정값)===== */
-.ph_thead>tr>th:nth-child(6) {
-    width: 12px;
+.ph_thead>tr>th:nth-child(5) {
+    width: 18px;
+    min-width: 18px;
+    max-width: 18px;
 }
 
 /* =======[닫기 버튼]=============================================================================== */

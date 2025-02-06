@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -152,4 +153,28 @@ public class SeatFacade {
 		return filteredList;
 
 	}
+
+	@Scheduled(cron = "0 39 17 * * ?") // 매일 오후 5시 10분 실행
+	public void autoCheckOutSeats() {
+		log.info("===== 매일 오후 5시 10분: 모든 좌석 체크아웃 시작 =====");
+
+		// 현재 사용 중인 좌석 목록 가져오기
+		List<SeatDTO> allSeats = seatservice.presentAllSeats();
+
+		for (SeatDTO seatUnit : allSeats) {
+			int seatNum = seatUnit.getSeat_num();
+			String id = seatUnit.getId();
+			String uppCode = seatUnit.getUpp_code();
+
+			if (id != null && uppCode != null) {
+				String uppPType = uppservice.selectUppByUppcode(uppCode).getP_type();
+				boolean isAutoCheckedOut = checkOutSeat(seatNum, id, uppCode, uppPType);
+				log.info("isAutoCheckedOut?? : " + isAutoCheckedOut);
+			}
+
+		}
+
+		log.info("===== 모든 좌석 체크아웃 완료 =====");
+	}
+
 }

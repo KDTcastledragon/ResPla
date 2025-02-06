@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,8 +33,10 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public String purchaseProduct(String id, int product_code, LocalDateTime start_date, LocalDateTime end_date, boolean usable, String payment, String order_type) {
-
+		String randomOrderNumber = String.format("%01d", new Random().nextInt(1_000_000_000));
+		log.info("randomNum : " + randomOrderNumber);
 		Map<String, Object> params = new HashMap<>();
+		params.put("randomNumber", randomOrderNumber);
 		params.put("id", id);
 		params.put("product_code", product_code);
 		params.put("start_date", start_date);
