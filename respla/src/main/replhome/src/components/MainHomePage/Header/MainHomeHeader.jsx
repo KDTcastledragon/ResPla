@@ -56,12 +56,12 @@ function MainHomeHeader() {
                     </Link>
                 </div>
 
-                <div className='tempClock'>
+                {/* <div className='tempClock'>
                     <span>현재 시각</span>
                     <span>{formatDate(time)}</span>
-                </div>
+                </div> */}
 
-            </div>
+            </div >
         </>
     )
 }
