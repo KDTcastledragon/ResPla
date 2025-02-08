@@ -27,4 +27,6 @@ public interface UserService {
 
 	boolean changePassWord(String id, String newPw);
 
+	boolean withdrawMember(String id);
+
 }

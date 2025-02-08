@@ -116,7 +116,7 @@ function OwnedPass({ setOpenOwnedPass, loginID }) {
                             <th>잔여 시간/일</th>
                             <th>가격</th>
                             <th>결제 수단</th>
-                            <th>환불</th>
+                            {/* <th>환불</th> */}
                             <th></th>
                         </tr>
                     </thead>
@@ -148,13 +148,13 @@ function OwnedPass({ setOpenOwnedPass, loginID }) {
 
                                 <td>{paymentOptFormat(d.payment)}</td>
 
-                                <td>
+                                {/* <td>
                                     {d.refunded === true ?
                                         <button className='refundedBox'>환불처리</button>
                                         :
                                         <button className='refundRequestBox' onClick={() => refund(d.upp_code, d.product_code)}>환불하기</button>
                                     }
-                                </td>
+                                </td> */}
                             </tr>
                         ))}
                     </tbody>

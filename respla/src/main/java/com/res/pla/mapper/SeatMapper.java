@@ -27,4 +27,6 @@ public interface SeatMapper {
 
 	void clean();
 
+	int truncateSeat(String id);
+
 }

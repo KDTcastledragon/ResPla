@@ -41,8 +41,8 @@
     	where seat_num = #{fixedSeatNum} and id = #{id} and upp_code = #{usedUppCode}
     </update>
     
-    <update id="clean" >
-        UPDATE seats SET occupied = false, id = null , upp_code = null
+    <update id="truncateSeat" >
+        update seats set occupied = false, id = null , upp_code = null where id = #{id}
     </update>
     
     

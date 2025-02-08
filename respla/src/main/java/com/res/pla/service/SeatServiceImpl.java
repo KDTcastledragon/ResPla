@@ -108,4 +108,10 @@ public class SeatServiceImpl implements SeatService {
 		return word.matches("-?\\d+(\\.\\d+)?");
 	}
 
+	@Override
+	public boolean truncateSeat(String id) {
+		int istruncated = seatmapper.truncateSeat(id);
+		return istruncated > 0;
+	}
+
 }

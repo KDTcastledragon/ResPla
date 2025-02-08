@@ -56,8 +56,13 @@ function UsageHistory({ setOpenUsageHistory, loginID }) {
                                 <td>
                                     <span>{d.p_type === 'm' ? '시간권' : d.p_type === 'd' ? '기간권' : d.p_type === 'f' ? '고정석' : 'null'}</span>
                                     <span>&nbsp;</span>
-                                    {/* <span>{`[${d.p_type === 'm' ? d.time_value / 60 : Math.floor(d.day_value / 24 / 60)}]`}</span> */}
-                                    <span>{`[${Math.floor(d.day_value / 60)}]`}</span>
+                                    <span>{`[`}</span>
+                                    <span>{d.p_type === 'm' ? d.time_value / 60
+                                        : d.p_type === 'd' ? Math.floor(d.day_value / 24)
+                                            : Math.floor(d.day_value / 24 / 7)
+                                    }</span>
+                                    <span>{`]`}</span>
+                                    {/* <span>{`[${Math.floor(d.day_value / 60)}]`}</span> */}
                                 </td>
 
                                 <td>{formatDate(d.used_date_time)}</td>

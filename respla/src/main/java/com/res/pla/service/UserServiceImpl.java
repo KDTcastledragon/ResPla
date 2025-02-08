@@ -75,6 +75,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public boolean withdrawMember(String id) {
+
+		int isWithdrawed = usermapper.withdrawMember(id);
+
+		return isWithdrawed > 0;
+	}
+
+	@Override
 	public boolean matchId(String id) {
 		try {
 			log.info("");

@@ -68,6 +68,7 @@
     width: 90%;
     height: 80px;
     font-size: 19px;
+    font-weight: bold;
     border: none;
     border-radius: 10px;
 }
@@ -78,6 +79,16 @@
 
 .userTableButtonBox>button:nth-child(2) {
     background-color: rgb(255, 212, 212);
+}
+
+.userTableButtonBox>button:nth-child(1):hover {
+    background-color: rgb(148, 255, 105);
+    cursor: pointer;
+}
+
+.userTableButtonBox>button:nth-child(2):hover {
+    background-color: rgb(255, 169, 169);
+    cursor: pointer;
 }
 
 /* ======================================================= */
@@ -127,6 +138,10 @@
     top: 25%;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.WithDrawMemberContainer {
+    background-color: rgb(255, 242, 242);
 }
 
 .ChangePasswordTitle,
@@ -240,4 +255,65 @@
 .chgPwButtonBox>button:nth-child(2):hover {
     cursor: pointer;
     background-color: rgb(158, 158, 158);
+}
+
+/* ========================================================================= */
+.withdrawMemberConfirmPwBox {
+    width: 700px;
+    height: 100px;
+    margin: auto;
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.withdrawMemberConfirmPwBox>span {
+    font-size: 26px;
+    line-height: 50px;
+    margin-right: 20px;
+}
+
+.withdrawMemberConfirmPwBox>input {
+    width: 250px;
+    height: 48px;
+    font-size: 30px;
+}
+
+.withDrawMemberButtonBox {
+    width: 700px;
+    height: 60px;
+    margin: auto;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.withDrawMemberButtonBox>button {
+    width: 230px;
+    height: 100%;
+    border: none;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.withDrawMemberButtonBox>button:nth-child(1) {
+    background-color: red;
+    color: white;
+}
+
+.withDrawMemberButtonBox>button:nth-child(1):hover {
+    background-color: rgb(137, 44, 44);
+    cursor: pointer;
+}
+
+.withDrawMemberButtonBox>button:nth-child(2) {
+    background-color: rgb(128, 128, 128);
+    color: white;
+}
+
+.withDrawMemberButtonBox>button:nth-child(2):hover {
+    background-color: rgb(33, 33, 33);
+    cursor: pointer;
 }

@@ -24,4 +24,6 @@ public interface SeatService {
 
 	boolean shiftSeat(int usedSeatnum, int newSeatnum, String id, String uppcode);
 
+	boolean truncateSeat(String id);
+
 }

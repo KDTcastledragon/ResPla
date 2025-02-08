@@ -32,4 +32,6 @@ public interface UserMapper {
 
 	int changePassword(String id, String encodedNewPassword);
 
+	int withdrawMember(String id);
+
 }

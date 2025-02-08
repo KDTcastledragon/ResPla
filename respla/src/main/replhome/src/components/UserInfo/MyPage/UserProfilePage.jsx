@@ -25,6 +25,8 @@ function UserProfilePage() {
 
     const [activeJoinButton, setActiveJoinButton] = useState(true);
 
+    const [writtenedPassword, setWrittenedPassword] = useState('');
+
     const logout = () => {
         sessionStorage.clear();
         navigator('/');
@@ -103,19 +105,18 @@ function UserProfilePage() {
         }
     }
 
-    function withDrawMember() {
-        const withDrawData = {
+    function withdrawMember() {
+        const withdrawData = {
             id: userId,
-            prevPw: prevPassword,
-            newPw: newPassword
+            password: writtenedPassword
         }
 
-        if (validPw && confirmPw === newPassword) {
+        if (writtenedPassword !== null) {
             axios
-                .post(`/user/withDrawMember`, withDrawData)
+                .post(`/user/withdrawMember`, withdrawData)
                 .then((r) => {
                     logout();
-                    alert(`비밀번호 변경 성공. 다시 로그인 해주세요.`);
+                    alert(`지금까지 저희 카페를 이용해주셔서 감사합니다.`);
 
                 }).catch((e) => {
                     if (e.response.status === 409) {
@@ -125,6 +126,8 @@ function UserProfilePage() {
                         alert(`서버 오류`);
                     }
                 })
+        } else {
+            alert(`비밀번호를 입력해주세요`);
         }
     }
 
@@ -234,8 +237,14 @@ function UserProfilePage() {
                 <div className='userInfoControlBackGround'>
                     <div className='WithDrawMemberContainer'>
                         <div className='withDrawMemberTitle'><span>회원탈퇴</span></div>
-                        <div>
-                            <button onClick={() => alert(`탈퇴`)}>회원탈퇴</button>
+                        <div className='withdrawMemberConfirmPwBox'>
+                            <span>비밀번호 확인</span>
+                            <input type="password" value={writtenedPassword}
+                                onChange={(e) => setWrittenedPassword(e.target.value)} minLength={7} />
+                        </div>
+
+                        <div className='withDrawMemberButtonBox'>
+                            <button onClick={withdrawMember}>회원탈퇴</button>
                             <button onClick={() => setWithdrawMemberOpen(false)}>닫기</button>
                         </div>
                     </div>

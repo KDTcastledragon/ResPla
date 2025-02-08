@@ -24,9 +24,13 @@
     	)
     </insert>
     
-     <insert id="changePassword">
+     <update id="changePassword">
     	update user set password = #{encodedNewPassword} where id = #{id}
-    </insert>
+    </update>
+    
+    <delete id="withdrawMember">
+    	delete from user where id = #{id}
+    </delete>
     
     <select id="selectBySearchWord" resultType="com.res.pla.domain.UserDTO">
         SELECT * FROM user where id like concat('%',#{searchWord},'%')

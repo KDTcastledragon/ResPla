@@ -20,6 +20,7 @@ import com.res.pla.domain.UserDTO;
 import com.res.pla.domain.UserPurchasedProductDTO;
 import com.res.pla.service.SeatFacade;
 import com.res.pla.service.SeatService;
+import com.res.pla.service.UsageHistoryService;
 import com.res.pla.service.UserPurchasedProductService;
 import com.res.pla.service.UserService;
 
@@ -36,6 +37,7 @@ public class UserController {
 	UserService userservice;
 	SeatService seatservice;
 	SeatFacade seatfacade;
+	UsageHistoryService uhservice;
 	PasswordEncoder encoder;
 
 	//====[1. 로그인]========================================================================================
@@ -194,11 +196,11 @@ public class UserController {
 	}
 
 	//====[회원탈퇴]============================================================================================================
-	@PostMapping("/withDrawMember")
-	public ResponseEntity<?> withDrawMember(@RequestBody UserDTO withDrawData) {
+	@PostMapping("/withdrawMember")
+	public ResponseEntity<?> withdrawMember(@RequestBody UserDTO withdrawData) {
 		try {
-			String id = withDrawData.getId();
-			String password = withDrawData.getPassword();
+			String id = withdrawData.getId();
+			String password = withdrawData.getPassword();
 
 			UserDTO dto = userservice.selectUser(id);
 
@@ -206,8 +208,11 @@ public class UserController {
 
 			if (encoder.matches(password, dto.getPassword()) && id.equals(dto.getId())) {
 
-				boolean isChanged = userservice.withDrawMember(id);
-				log.info("비밀번호 변경됨? {}", isChanged);
+				boolean isTruncatedSeat = seatservice.truncateSeat(id);
+
+				boolean isWithdrawed = userservice.withdrawMember(id);
+
+				log.info("탈퇴확인 {} , {}", isTruncatedSeat, isWithdrawed);
 
 				return ResponseEntity.ok().body(id); // 200
 

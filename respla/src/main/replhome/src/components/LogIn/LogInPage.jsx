@@ -64,12 +64,12 @@ function LogInPage() {
                     <div className='loginId'>
                         <span>아이디</span>
                         <input type="text" value={id}
-                            onChange={(e) => setId(e.target.value)} minLength={10} />
+                            onChange={(e) => setId(e.target.value)} minLength={5} />
                     </div>
                     <div className='loginPw'>
                         <span>비밀번호</span>
                         <input type="password" value={pw}
-                            onChange={(e) => setPw(e.target.value)} minLength={15} />
+                            onChange={(e) => setPw(e.target.value)} minLength={7} />
                     </div>
 
                     <div className='findAndJoinBox'>
