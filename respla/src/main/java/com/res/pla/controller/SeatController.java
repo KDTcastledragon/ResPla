@@ -59,12 +59,7 @@ public class SeatController {
 			String menu = menuData.get("menu");
 			UserPurchasedProductDTO fixedPass = uppservice.selectUsableOneUppByIdPType(id, "f");
 			boolean isUserCheckedIn = seatfacade.isUserCheckedIn(id); // 입실 여부 확인
-			if (fixedPass != null && menu.equals("moveseat")) {
-				log.info("고정석 자리이동 불가.");
-				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("fixed not allow moveseat");
-			}
-
-			else if (isUserCheckedIn) {
+			if (isUserCheckedIn) {
 				return ResponseEntity.ok().build();  // 200
 			}
 
@@ -82,7 +77,7 @@ public class SeatController {
 						String f_uppCode = fixedPass.getUpp_code();
 
 						seatfacade.checkInSeat(fNum, id, f_uppCode, f_pType);
-						log.info("이미고정석 : {} {} {}", fNum, f_pType, f_uppCode);
+						log.info("이미 고정석 : {} {} {}", fNum, f_pType, f_uppCode);
 						return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT).body("already_fixed"); // 206
 
 					} else {
@@ -94,6 +89,13 @@ public class SeatController {
 		} catch (Exception e) {
 			throw e;
 		}
+
+		//		if (fixedPass != null && menu.equals("moveseat")) {
+		//			log.info("고정석 자리이동 불가.");
+		//			return ResponseEntity.status(HttpStatus.FORBIDDEN).body("fixed not allow moveseat");
+		//		}
+		//
+		//		else 
 	}
 
 	//====[2. 기간권 사용중 시간권 중복사용 방지]===============================================
@@ -236,23 +238,13 @@ public class SeatController {
 			String upp_code = upp.getUpp_code();
 
 			String adminRequest = Data.get("adminRequest");
-			String pType = upp.getP_type();
+			//			String pType = upp.getP_type();
 
 			int usedSeatNum = seatservice.selectSeatById(id).getSeat_num();
 
 			boolean isUserCheckedIn = seatfacade.isUserCheckedIn(id); // 입실 여부 확인 // 중요한 작업이라 한번 더 확인함.
 
-			if (pType.equals("f") && adminRequest == null) {
-				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("you don't. request to Admin "); // 403
-			}
-
-			else if (pType.equals("f") && adminRequest.equals("move")) {
-				seatfacade.moveSeat(usedSeatNum, seat_num, id, upp_code);
-				log.info("관리자 요청 자리이동 성공");
-				return ResponseEntity.ok().build();
-			}
-
-			else if (isUserCheckedIn == true && upp_code != null) {
+			if (isUserCheckedIn == true && upp_code != null) {
 
 				seatfacade.moveSeat(usedSeatNum, seat_num, id, upp_code);
 
@@ -264,12 +256,24 @@ public class SeatController {
 				return ResponseEntity.status(HttpStatus.CONFLICT).body("you need to checkin First "); // 409
 
 			} else {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("you need to checkin First "); // 403
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("bad request "); // 403
 			}
 		} catch (Exception e) {
 			log.info("moveSeat 예외처리 : " + e.toString());
 			throw e;
 		}
+
+		//		if (pType.equals("f") && adminRequest == null) {
+		//			return ResponseEntity.status(HttpStatus.FORBIDDEN).body("you don't. request to Admin "); // 403
+		//		}
+		//
+		//		else if (pType.equals("f") && adminRequest.equals("move")) {
+		//			seatfacade.moveSeat(usedSeatNum, seat_num, id, upp_code);
+		//			log.info("관리자 요청 자리이동 성공");
+		//			return ResponseEntity.ok().build();
+		//		}
+		//
+		//		else 
 	}
 
 	@GetMapping("/selectBySearchWord")

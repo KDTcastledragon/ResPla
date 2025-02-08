@@ -67,6 +67,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public boolean changePassWord(String id, String newPw) {
+		String encodedNewPassword = encoder.encode(newPw);
+
+		int isChanged = usermapper.changePassword(id, encodedNewPassword);
+		return isChanged > 0;
+	}
+
+	@Override
 	public boolean matchId(String id) {
 		try {
 			log.info("");

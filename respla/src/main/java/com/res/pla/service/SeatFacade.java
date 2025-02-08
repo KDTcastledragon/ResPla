@@ -162,13 +162,13 @@ public class SeatFacade {
 		List<SeatDTO> allSeats = seatservice.presentAllSeats();
 
 		for (SeatDTO seatUnit : allSeats) {
-			int seatNum = seatUnit.getSeat_num();
+			int seatNumberAll = seatUnit.getSeat_num();
 			String id = seatUnit.getId();
 			String uppCode = seatUnit.getUpp_code();
 
 			if (id != null && uppCode != null) {
 				String uppPType = uppservice.selectUppByUppcode(uppCode).getP_type();
-				boolean isAutoCheckedOut = checkOutSeat(seatNum, id, uppCode, uppPType);
+				boolean isAutoCheckedOut = checkOutSeat(seatNumberAll, id, uppCode, uppPType);
 				log.info("isAutoCheckedOut?? : " + isAutoCheckedOut);
 			}
 

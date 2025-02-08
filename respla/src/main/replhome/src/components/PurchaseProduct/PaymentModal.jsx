@@ -170,12 +170,12 @@ function PaymentModal({ product_code, p_type, time_value, day_value, price, star
                                     : p_type === 'd' || p_type === 'f' ?
                                         <>
                                             <td style={{ width: '20%' }}>
-                                                <span>기간권</span>
+                                                <span>{p_type === 'd' ? '기간권' : '고정석'}</span>
                                                 <span>&nbsp;&nbsp;</span>
                                                 <span>/</span>
                                                 <span>&nbsp;&nbsp;</span>
-                                                <span>{day_value / 24}</span>
-                                                <span>일</span>
+                                                <span>{p_type === 'd' ? day_value / 24 : day_value / 24 / 7}</span>
+                                                <span>{p_type === 'd' ? '일' : '주'}</span>
                                             </td>
 
                                             <td>

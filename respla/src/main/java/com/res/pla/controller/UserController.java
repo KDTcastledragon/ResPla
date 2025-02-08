@@ -63,7 +63,6 @@ public class UserController {
 				} else {
 					return ResponseEntity.status(HttpStatus.CONFLICT).body("no match pw");
 				}
-
 			}
 
 		} else {
@@ -122,6 +121,34 @@ public class UserController {
 		}
 	}
 
+	//====[비밀번호 변경]==========================================
+	@PostMapping("/changePassword")
+	public ResponseEntity<?> changePassword(@RequestBody Map<String, String> pwData) {
+		try {
+			String id = pwData.get("id");
+			String prevPw = pwData.get("prevPw");
+			String newPw = pwData.get("newPw");
+
+			UserDTO dto = userservice.selectUser(id);
+
+			log.info("비밀번호 일치? {} {}", prevPw, dto.getPassword());
+
+			if (encoder.matches(prevPw, dto.getPassword())) {
+
+				boolean isChanged = userservice.changePassWord(id, newPw);
+				log.info("비밀번호 변경됨? {}", isChanged);
+
+				return ResponseEntity.ok().body(id); // 200
+
+			} else {
+				return ResponseEntity.status(HttpStatus.CONFLICT).body("no match pw"); // 409
+			}
+
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
 	//====[?. 로그인 유저 실시간 정보]========================================================================================
 	@PostMapping("/loginedUser")
 	public ResponseEntity<?> loginedUser(@RequestBody Map<String, String> idData) {
@@ -166,6 +193,33 @@ public class UserController {
 		}
 	}
 
+	//====[회원탈퇴]============================================================================================================
+	@PostMapping("/withDrawMember")
+	public ResponseEntity<?> withDrawMember(@RequestBody UserDTO withDrawData) {
+		try {
+			String id = withDrawData.getId();
+			String password = withDrawData.getPassword();
+
+			UserDTO dto = userservice.selectUser(id);
+
+			log.info("비밀번호 일치? {} {}", password, dto.getPassword());
+
+			if (encoder.matches(password, dto.getPassword()) && id.equals(dto.getId())) {
+
+				boolean isChanged = userservice.withDrawMember(id);
+				log.info("비밀번호 변경됨? {}", isChanged);
+
+				return ResponseEntity.ok().body(id); // 200
+
+			} else {
+				return ResponseEntity.status(HttpStatus.CONFLICT).body("no match pw"); // 409
+			}
+
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
 	//====[4. 모든 유저 정보 ]========================================================================================isCurrentUse
 	@GetMapping("/allUserList")
 	public ResponseEntity<?> allUserList() {
@@ -175,15 +229,15 @@ public class UserController {
 		return ResponseEntity.ok(userList);
 	}
 
-	@GetMapping("/abcde")
-	public ResponseEntity<?> abcde() {
-		userservice.clean();
-		log.info("");
-		log.info("@@@@@@@@@@@@@@@@전부 삭제@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-		log.info("");
-
-		return ResponseEntity.ok().build();
-	}
+	//	@GetMapping("/abcde")
+	//	public ResponseEntity<?> abcde() {
+	//		userservice.clean();
+	//		log.info("");
+	//		log.info("@@@@@@@@@@@@@@@@전부 삭제@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+	//		log.info("");
+	//
+	//		return ResponseEntity.ok().build();
+	//	}
 
 	//====[5. 검색 단어 기준 유저  정보 ]========================================================================================isCurrentUse
 	@GetMapping("/userSearch")

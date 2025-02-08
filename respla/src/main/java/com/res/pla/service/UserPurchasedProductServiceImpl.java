@@ -283,7 +283,7 @@ public class UserPurchasedProductServiceImpl implements UserPurchasedProductServ
 					}
 				} // isFirstOperate 체크
 				log.info("");
-			}, 0, 5, TimeUnit.SECONDS);
+			}, 0, 1, TimeUnit.MINUTES);
 
 		} else {
 			log.info("시간권 계산 오류발생");// if-else : dto null검사 && uppcode 일치 검사

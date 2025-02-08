@@ -6,7 +6,7 @@ import { Link, Navigate } from 'react-router-dom';
 
 import Seat from './Seat';
 import SeatModal from './SeatModal';
-import CheckInUseProducts from '../UserInfo/CheckInUseProducts';
+import CheckInUseProducts from './CheckInUseProducts';
 
 
 function SeatPresentPage() {

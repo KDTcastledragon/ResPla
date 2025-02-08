@@ -115,7 +115,8 @@ public class ProductController {
 						int day_value = purchaseProduct.getDay_value();
 						log.info("연장구매 일수 : {}", day_value);
 
-						end_date = start_date.plusSeconds(day_value);
+						//						end_date = start_date.plusSeconds(day_value);
+						end_date = start_date.plusHours(day_value);
 						log.info("연장구매 종료일 : {}", end_date);
 
 					} else {
@@ -127,7 +128,8 @@ public class ProductController {
 						int day_value = purchaseProduct.getDay_value();
 						log.info("연장구매 일수 : {}", day_value);
 
-						end_date = start_date.plusSeconds(day_value);
+						//						end_date = start_date.plusSeconds(day_value);
+						end_date = start_date.plusHours(day_value);
 						log.info("연장구매 종료일 : {}", end_date);
 					}
 				}

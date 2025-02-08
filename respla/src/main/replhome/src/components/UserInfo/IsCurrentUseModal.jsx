@@ -72,13 +72,13 @@ function IsCurrentUseModal({ setIsCurrentUseModal, closeTime, setCloseTime, isCu
                                                 <span>사용중인 고정좌석으로</span>
                                                 <span>입실 완료하였습니다.</span>
                                             </>
-                                            : cmt === '403mf' ?
-                                                <>
-                                                    <span>고정석 자리이동은</span>
-                                                    <span>관리자에게 문의해주세요.</span>
-                                                </>
+                                            // : cmt === '403mf' ?
+                                            //     <>
+                                            //         <span>고정석 자리이동은</span>
+                                            //         <span>관리자에게 문의해주세요.</span>
+                                            //     </>
 
-                                                : <span>일시적 오류</span>
+                                            : <span>일시적 오류</span>
                 }
             </div>
 

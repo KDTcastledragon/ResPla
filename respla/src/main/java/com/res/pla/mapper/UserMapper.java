@@ -30,4 +30,6 @@ public interface UserMapper {
 
 	int join(String id, String password, String user_name, LocalDate birth, String phone_number);
 
+	int changePassword(String id, String encodedNewPassword);
+
 }

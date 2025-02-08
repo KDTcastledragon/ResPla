@@ -25,4 +25,6 @@ public interface UserService {
 
 	boolean idDupCheck(String id);
 
+	boolean changePassWord(String id, String newPw);
+
 }

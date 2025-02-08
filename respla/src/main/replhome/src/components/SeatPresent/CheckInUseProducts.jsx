@@ -150,8 +150,8 @@ function CheckInUseProducts({ setCheckInUseProductsOpen, checkInUseProductsOpen 
                                         <span>&nbsp;&nbsp;</span>
                                         <span>/</span>
                                         <span>&nbsp;&nbsp;</span>
-                                        <span>{(d.day_value / 24) >= 365 * 24 ? `1` : `${(d.day_value / 24)}`}</span>
-                                        <span>{(d.day_value / 24) >= 365 * 24 ? `년` : `일`}</span>
+                                        <span>{(d.day_value / 24) >= 28 ? d.day_value / 24 / 7 : `${(d.day_value / 24)}`}</span>
+                                        <span>{(d.day_value / 24) >= 28 ? `주` : `일`}</span>
                                     </td>
                                     <td className='td_startEndDate'>
                                         <span>{formatDate(d.start_date)}</span>

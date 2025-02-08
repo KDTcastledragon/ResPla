@@ -121,10 +121,123 @@
 .ChangePasswordContainer,
 .WithDrawMemberContainer {
     position: fixed;
-    width: 600px;
-    height: 500px;
+    width: 950px;
+    height: 350px;
     background-color: rgb(255, 255, 255);
-    top: 17%;
+    top: 25%;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.ChangePasswordTitle,
+.withDrawMemberTitle {
+    /* background-color: rgb(3, 113, 113); */
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 35px;
+}
+
+.ChangePasswordTitle>span,
+.withDrawMemberTitle>span {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.ChangePasswordContainer>div:not(:first-child)>span:nth-child(1) {
+    display: inline-block;
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
+    text-align: right;
+    /* background-color: aqua; */
+    margin-right: 20px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.ChangePasswordContainer>div:not(:first-child)>input {
+    display: inline-block;
+    background-color: rgb(215, 244, 157);
+    width: 220px;
+    height: 40px;
+    font-size: 14px;
+    margin-right: 12px;
+}
+
+.ChangePasswordContainer>div:nth-child(2)>input {
+    background-color: rgb(255, 242, 226);
+}
+
+.newPw>.inValidPw,
+.newPw>.validPw {
+    display: inline-block;
+    width: 480px;
+    height: 40px;
+    line-height: 40px;
+    color: red;
+    font-weight: bold;
+}
+
+.ConfirmNewPw>.confirmedPw,
+.ConfirmNewPw>.denyPw {
+    display: inline-block;
+    width: 160px;
+    height: 40px;
+    line-height: 40px;
+    color: red;
+    font-weight: bold;
+}
+
+.newPw>.validPw,
+.ConfirmNewPw>.confirmedPw {
+    color: rgb(0, 130, 0);
+}
+
+.chgPwButtonBox {
+    margin: auto;
+    margin-top: 35px;
+    width: 700px;
+    height: 50px;
+    /* background-color: aqua; */
+    display: flex;
+    justify-content: space-around;
+}
+
+.chgPwButtonBox>button {
+    width: 200px;
+    height: 100%;
+    border: none;
+    border-radius: 10px;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+
+}
+
+.chgPwButtonBox>button:nth-child(1) {
+    background-color: rgb(0, 177, 0);
+    color: white;
+
+    &:disabled {
+        opacity: 0.2;
+        background-color: rgb(0, 0, 0);
+    }
+}
+
+.chgPwButtonBox>button:nth-child(1):hover {
+    cursor: pointer;
+    background-color: rgb(0, 124, 0);
+}
+
+.chgPwButtonBox>button:disabled:hover {
+    cursor: not-allowed;
+}
+
+.chgPwButtonBox>button:nth-child(2):hover {
+    cursor: pointer;
+    background-color: rgb(158, 158, 158);
 }

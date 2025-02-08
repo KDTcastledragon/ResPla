@@ -43,8 +43,8 @@ function Seat(props) {
     }
 
     return (
-        <div className={props.occupied == true && props.id !== null && props.id === loginID ? 'seatMine'
-            : props.occupied === false && props.id !== null && props.upp_code !== null ? 'seatUsed'
+        <div className={props.id !== null && props.upp_code !== null && props.id === loginID ? 'seatMine'
+            : props.occupied === true || (props.occupied === false && props.id !== null && props.upp_code !== null && props.id !== loginID) ? 'seatUsed'
                 : 'SeatContainer'}
 
             onClick={menuType !== 'seatpresent' ? seatClick : null}>
