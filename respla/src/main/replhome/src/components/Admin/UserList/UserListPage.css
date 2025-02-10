@@ -137,22 +137,15 @@
     /* background-color: aquamarine; */
 }
 
-.userListPageTable>thead>tr>th:nth-child(8),
-.userListPageTable>tbody>tr>td:nth-child(8) {
-    width: 110px;
-    /* background-color: rgb(167, 119, 119); */
-}
-
-.userListPageTable>thead>tr>th:nth-child(9) {
+.userListPageTable>thead>tr>th:nth-child(8) {
     width: 15px;
-    /* background-color: cornflowerblue; */
+    background-color: rgb(167, 119, 119);
 }
 
 .userListPageTable>thead>tr>th {
     background-color: rgb(238, 238, 238);
 }
 
-.userListPageTable>tbody>tr>td:nth-child(8) {}
 
 
 /* [기타 넓이 높이 설정]================================================================================================================== */
@@ -269,12 +262,20 @@
     text-align: center;
 }
 
-.benCauseContentContainer>div:nth-child(1) {
+.benCauseContentContainer>div:nth-child(1)>span:nth-child(1) {
     font-size: 30px;
     height: 40px;
     line-height: 40px;
     font-weight: bold;
     text-align: center;
+}
+
+.benCauseContentContainer>div:nth-child(1)>span:nth-child(2) {
+    font-size: 13px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    margin-left: 30px;
 }
 
 .benCauseContentContainer>div:nth-child(2) {

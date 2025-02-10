@@ -177,4 +177,32 @@ public class SeatFacade {
 		log.info("===== 모든 좌석 체크아웃 완료 =====");
 	}
 
+	public boolean forcedOut(int usedSeatNum, String id, String usedUppcode, String pType) {
+		log.info("");
+
+		int isConvertInUsedFalse = uppservice.convertInUsed(id, usedUppcode, false);
+		int isRecordedUsage = uhservice.recordAction(id, usedSeatNum, "forcedOut", usedUppcode);
+
+		if (pType.equals("m")) {
+
+			int isVacated = seatservice.vacateSeat(usedSeatNum, id, usedUppcode);
+			boolean isStartCalculateTimePass = false;
+			uppservice.stopCalculateTimePass(id, usedUppcode);
+			isStartCalculateTimePass = true;
+
+			log.info("시간권 강제 퇴장");
+			return (isVacated > 0) && (isConvertInUsedFalse > 0) && (isRecordedUsage > 0) && isStartCalculateTimePass;
+
+		} else if (pType.equals("d") || pType.equals("f")) {
+
+			int isVacated = seatservice.vacateSeat(usedSeatNum, id, usedUppcode);
+
+			log.info("강제 퇴장");
+			return (isVacated > 0) && (isConvertInUsedFalse > 0) && (isRecordedUsage > 0);
+
+		} else {
+			return false;
+		}
+	}
+
 }

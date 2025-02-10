@@ -9,15 +9,16 @@ import SeatUnitControlModal from './SeatUnitControlModal';
 
 function SeatManagementPage() {
 
-    const [seatsData, setseatsData] = useState([]);
+    const [seatsData, setSeatsData] = useState([]);
     const [seatUnitControlModalOpen, setSeatUnitControlModalOpen] = useState(false);
 
     useEffect(() => {
         axios
-            .get(`/seat/presentAllSeats`)
+            // .get(`/seat/presentAllSeats`)
+            .get(`/seat/allSeatsAdmin`)
             .then((r) => {
-                // console.log(`관리자 좌석 현황 성공 : ${r.data}`)
-                setseatsData(r.data);
+                console.log(`관리자 좌석 현황 성공 : ${JSON.stringify(r.data)}`);
+                setSeatsData(r.data);
             }).catch((e) => {
                 console.log(`관리자 좌석현황 실패 : ${e.message}`);
                 alert(`관리자 좌석 현황 실패`);
@@ -56,8 +57,14 @@ function SeatManagementPage() {
                                 seat_num={d.seat_num}
                                 occupied={d.occupied}
                                 id={d.id}
-                                // menuType={menuType}
                                 upp_code={d.upp_code}
+                                p_type={d.p_type}
+                                time_value={d.time_value}
+                                used_time={d.used_time}
+                                available_time={d.available_time}
+                                day_value={d.day_value}
+                                start_date={d.start_date}
+                                end_date={d.end_date}
                                 setSeatUnitControlModalOpen={setSeatUnitControlModalOpen}
                             />
                         ))}
@@ -70,8 +77,14 @@ function SeatManagementPage() {
                                 seat_num={d.seat_num}
                                 occupied={d.occupied}
                                 id={d.id}
-                                // menuType={menuType}
                                 upp_code={d.upp_code}
+                                p_type={d.p_type}
+                                time_value={d.time_value}
+                                used_time={d.used_time}
+                                available_time={d.available_time}
+                                day_value={d.day_value}
+                                start_date={d.start_date}
+                                end_date={d.end_date}
                                 setSeatUnitControlModalOpen={setSeatUnitControlModalOpen}
                             />
                         ))}
@@ -84,8 +97,14 @@ function SeatManagementPage() {
                                 seat_num={d.seat_num}
                                 occupied={d.occupied}
                                 id={d.id}
-                                // menuType={menuType}
                                 upp_code={d.upp_code}
+                                p_type={d.p_type}
+                                time_value={d.time_value}
+                                used_time={d.used_time}
+                                available_time={d.available_time}
+                                day_value={d.day_value}
+                                start_date={d.start_date}
+                                end_date={d.end_date}
                                 setSeatUnitControlModalOpen={setSeatUnitControlModalOpen}
                             />
                         ))}
@@ -104,8 +123,14 @@ function SeatManagementPage() {
                                     seat_num={d.seat_num}
                                     occupied={d.occupied}
                                     id={d.id}
-                                    // menuType={menuType}
                                     upp_code={d.upp_code}
+                                    p_type={d.p_type}
+                                    time_value={d.time_value}
+                                    used_time={d.used_time}
+                                    available_time={d.available_time}
+                                    day_value={d.day_value}
+                                    start_date={d.start_date}
+                                    end_date={d.end_date}
                                     setSeatUnitControlModalOpen={setSeatUnitControlModalOpen}
                                 />
                             ))}
@@ -125,8 +150,14 @@ function SeatManagementPage() {
                                     seat_num={d.seat_num}
                                     occupied={d.occupied}
                                     id={d.id}
-                                    // menuType={menuType}
                                     upp_code={d.upp_code}
+                                    p_type={d.p_type}
+                                    time_value={d.time_value}
+                                    used_time={d.used_time}
+                                    available_time={d.available_time}
+                                    day_value={d.day_value}
+                                    start_date={d.start_date}
+                                    end_date={d.end_date}
                                     setSeatUnitControlModalOpen={setSeatUnitControlModalOpen}
                                 />
                             ))}
@@ -140,8 +171,14 @@ function SeatManagementPage() {
                                 seat_num={d.seat_num}
                                 occupied={d.occupied}
                                 id={d.id}
-                                // menuType={menuType}
                                 upp_code={d.upp_code}
+                                p_type={d.p_type}
+                                time_value={d.time_value}
+                                used_time={d.used_time}
+                                available_time={d.available_time}
+                                day_value={d.day_value}
+                                start_date={d.start_date}
+                                end_date={d.end_date}
                                 setSeatUnitControlModalOpen={setSeatUnitControlModalOpen}
                             />
                         ))}
@@ -161,7 +198,7 @@ function SeatManagementPage() {
             </div>
             <div className='seatManageButton'>
                 <div className='seatSearchButton'><button onClick={() => searchSeat()}>좌석 검색</button></div>
-                <div className='fixedSeatMoveButton'><button onClick={() => fixedSeatMove()}>고정석 자리 이동</button></div>
+                {/* <div className='fixedSeatMoveButton'><button onClick={() => fixedSeatMove()}>고정석 자리 이동</button></div> */}
             </div>
         </>
     )

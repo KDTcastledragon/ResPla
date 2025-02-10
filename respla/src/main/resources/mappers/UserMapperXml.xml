@@ -54,6 +54,11 @@
         update user set ben_cause = #{cause} where id=#{id}
     </update>
     
+    <update id="updateUnbenCause">
+        update user set unben_cause = #{cause} where id=#{id}
+    </update>
+    
+    
     <update id="benCountUp">
         update user set ben_count = ben_count+1 where id=#{id}
     </update>

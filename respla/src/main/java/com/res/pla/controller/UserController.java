@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.res.pla.domain.AdminDTO;
+import com.res.pla.domain.SeatDTO;
 import com.res.pla.domain.UserDTO;
 import com.res.pla.domain.UserPurchasedProductDTO;
 import com.res.pla.service.SeatFacade;
@@ -39,6 +41,7 @@ public class UserController {
 	SeatFacade seatfacade;
 	UsageHistoryService uhservice;
 	PasswordEncoder encoder;
+	SessionRegistry sessionRegistry;
 
 	//====[1. 로그인]========================================================================================
 	@PostMapping("/login")
@@ -155,7 +158,7 @@ public class UserController {
 	@PostMapping("/loginedUser")
 	public ResponseEntity<?> loginedUser(@RequestBody Map<String, String> idData) {
 		try {
-			log.info("로그인 유저 정보 : {}", idData);
+			//			log.info("로그인 유저 정보 : {}", idData);
 			String id = idData.get("id");
 			String name = userservice.selectUser(id) != null ? userservice.selectUser(id).getUser_name() : null;
 			boolean isUserCheckedIn = seatfacade.isUserCheckedIn(id); // 입실 여부 확인
@@ -312,22 +315,40 @@ public class UserController {
 		String id = data.get("id");
 		String benState = data.get("isBenned");
 		String cause = data.get("benCause");
+		String order = data.get("order");
 
-		log.info("벤! {} {}", id, benState);
+		log.info("{} {} {}", id, benState, order);
 
 		boolean isBenned = "true".equalsIgnoreCase(benState);
 
-		boolean result = userservice.ben(id, isBenned, cause);
+		boolean benResult = userservice.ben(id, isBenned, cause);
 
-		if (result) {
-			return ResponseEntity.ok().build();
+		SeatDTO usedSeat = seatservice.selectSeatById(id);
+
+		if (benResult) {
+
+			if (usedSeat != null) {
+				int seatNum = usedSeat.getSeat_num();
+				String uppCode = usedSeat.getUpp_code();
+				String uppPType = uppservice.selectUppByUppcode(uppCode).getP_type();
+
+				boolean forcedOutResult = seatfacade.forcedOut(seatNum, id, uppCode, uppPType);
+
+				if (forcedOutResult) {
+					return ResponseEntity.ok().build();
+				} else {
+					return ResponseEntity.status(HttpStatus.CONFLICT).body("이용금지와 강퇴가 동시에 이루어져야합니다.");
+				}
+			} else {
+				return ResponseEntity.ok().build();
+			}
 
 		} else {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body("conflict");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("bad_request");
 		}
 	}
 
-	//====[9. 이용 금지 처분]========================================================================================
+	//====[9. 회원정보]========================================================================================
 	@PostMapping("/profile")
 	public ResponseEntity<?> profile(@RequestBody Map<String, String> data) {
 		log.info("");

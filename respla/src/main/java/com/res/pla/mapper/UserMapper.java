@@ -26,6 +26,8 @@ public interface UserMapper {
 
 	int updateBenCause(String id, String cause);
 
+	int updateUnbenCause(String id, String cause);
+
 	int benCountUp(String id);
 
 	int join(String id, String password, String user_name, LocalDate birth, String phone_number);

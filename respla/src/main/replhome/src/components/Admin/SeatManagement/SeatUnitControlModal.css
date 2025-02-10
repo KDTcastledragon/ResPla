@@ -8,6 +8,144 @@
     z-index: 90;
 }
 
-.seatModalContentBox {
+.SeatUnitControlModalContainer {
+    position: fixed;
+    width: 500px;
+    height: 400px;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
     background-color: white;
+}
+
+
+/* ============================================ */
+.adminSeatNumber {
+    width: 300px;
+    margin: auto;
+    /* background-color: aqua; */
+    display: flex;
+    justify-content: center;
+}
+
+.adminSeatNumber>span {
+    font-size: 33px;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+/* ==================================================== */
+.seatModalContentBox>div:not(:first-child) {
+    width: 460px;
+    margin-left: 20px;
+    /* background-color: aqua; */
+}
+
+.seatModalContentBox>.adminSeatId {
+    /* background-color: aquamarine; */
+    font-size: 25px;
+    margin-top: 30px;
+}
+
+.seatModalContentBox>.adminSeatId>span:nth-child(3) {
+    font-weight: bold;
+}
+
+.adminSeatPassInfo {
+    margin-top: 20px;
+    height: 100px;
+    border-radius: 10px;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    background-color: rgb(239, 222, 255);
+}
+
+.adminSeatPassInfo>div {
+    width: 430px;
+    margin-left: 25px;
+    /* background-color: aqua; */
+}
+
+.adminSeatPType {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.adminSeatPType>span:nth-child(n+1):nth-child(-n+6) {
+    font-size: 22px;
+    font-weight: bold
+}
+
+.adminSeatTimeDayValue>span {
+    font-weight: bold;
+}
+
+.adminSeatTimeDayValue>span:nth-child(3) {
+    color: red;
+}
+
+.adminSeatButtonBox {
+    width: 460px;
+    height: 50px;
+    /* background-color: aqua; */
+    margin: auto;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.adminSeatButtonBox>button {
+    width: 120px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.adminSeatButtonBox>button:nth-child(1) {
+    background-color: red;
+    color: white;
+    border: none;
+}
+
+.adminSeatButtonBox>button:nth-child(2) {
+    background-color: black;
+    color: white;
+}
+
+
+.adminSeatCloseButtonBox {
+    width: 400px;
+    height: 55px;
+    /* background-color: aqua; */
+    margin: auto;
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.adminSeatCloseButtonBox>button {
+    width: 200px;
+    height: 100%;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+
+.adminSeatCloseButtonBox>button:hover {
+    cursor: pointer;
+}
+
+
+/* ===========검색=================================== */
+.userSeatSearchBox {
+    width: 500px;
+    height: 60px;
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgb(252, 158, 251);
+
+
 }

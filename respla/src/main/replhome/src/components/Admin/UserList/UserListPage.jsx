@@ -14,6 +14,8 @@ function UserListPage() {
     const [isBenned, setIsBenned] = useState('all');
     const [benCause, setBenCause] = useState(false);
     const [benCauseContent, setBenCauseContent] = useState();
+    const [unbenCause, setUnbenCause] = useState(false);
+    const [unbenCauseContent, setUnbenCauseContent] = useState();
     const [benData, setBenData] = useState(
         {
             opened: false,
@@ -98,6 +100,11 @@ function UserListPage() {
         return `${num.slice(0, 3)}-${num.slice(3, 7)}-${num.slice(7)}`
     }
 
+    const formatDate = (dateString) => {
+        return moment(dateString).format('YYYY-MM-DD / HH:mm:ss');
+    };
+
+
 
     console.log(userList);
 
@@ -148,7 +155,6 @@ function UserListPage() {
                             <th>생년월일</th>
                             <th>휴대폰번호</th>
                             <th>가입일</th>
-                            <th>탈퇴일</th>
                             <th>금지 여부</th>
                             <th>금지 적용</th>
                             <th>{null}</th>
@@ -163,17 +169,25 @@ function UserListPage() {
                                     <td>{d.user_name}</td>
                                     <td>{birthFormatter(d.birth)}</td>
                                     <td>{phoneFormat(d.phone_number)}</td>
-                                    <td>{d.join_date}</td>
-                                    <td>{d.deactivation_date}</td>
+                                    <td>{formatDate(d.join_date)}</td>
                                     <td>
-                                        {d.benned === true ?
-                                            <button onClick={
-                                                () => {
-                                                    setBenCause(true);
-                                                    setBenCauseContent(d.ben_cause);
-                                                }
-                                            }>금지</button>
-                                            : null
+                                        {d.ben_cause === null && d.unben_cause === null ? null
+
+                                            : d.benned === true ?
+                                                <button onClick={
+                                                    () => {
+                                                        setBenCause(true);
+                                                        setBenCauseContent(d.ben_cause);
+                                                    }
+                                                }>금지사유</button>
+                                                : d.benned === false ?
+                                                    <button onClick={
+                                                        () => {
+                                                            setUnbenCause(true);
+                                                            setUnbenCauseContent(d.unben_cause);
+                                                        }
+                                                    }>해제사유</button>
+                                                    : null
                                         }
                                     </td>
                                     <td>
@@ -211,9 +225,22 @@ function UserListPage() {
             {benCause && (
                 <div className='benCauseContentContainerBackGround'>
                     <div className='benCauseContentContainer'>
-                        <div><span>이용 금지 사유</span></div>
+                        <div>
+                            <span>이용 금지 사유</span>
+                        </div>
                         <div>{benCauseContent}</div>
                         <div><button onClick={() => setBenCause(false)}>닫기</button></div>
+
+                    </div>
+                </div>
+            )}
+
+            {unbenCause && (
+                <div className='benCauseContentContainerBackGround'>
+                    <div className='benCauseContentContainer'>
+                        <div><span>금지 해제 사유</span></div>
+                        <div>{unbenCauseContent}</div>
+                        <div><button onClick={() => setUnbenCause(false)}>닫기</button></div>
 
                     </div>
                 </div>

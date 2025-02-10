@@ -1,14 +1,6 @@
-/* .SeatAdminContainer {
-    font-size: 14px;
-    width: 100px;
-    height: 60px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    margin: 10px;
-} */
-
 .SeatAdminContainer,
-.seatAdminUsed {
+.SeatAdminUsed,
+.SeatAdminFixed {
     width: 60px;
     height: 50px;
     background-color: #dcdcdc;
@@ -17,24 +9,26 @@
     box-sizing: border-box;
 }
 
-.seatAdminUsed {
-    background-color: red;
+.SeatAdminFixed {
+    background-color: rgb(255, 255, 10);
 }
 
-.SeatContainer,
-.seatUsed {}
-
-.seatUsed {
-    background-color: rgb(255, 27, 27);
+.SeatAdminUsed {
+    background-color: red;
 }
 
 .SeatAdminContainer:hover {
     background-color: #c3c3c3;
-    /* cursor: grabbing; */
 }
 
-.seatAdminUsed {
+.SeatAdminUsed:hover,
+.SeatAdminFixed:hover {
+    background-color: rgb(253, 157, 157);
     cursor: pointer;
+}
+
+.SeatAdminFixed:hover {
+    background-color: rgb(255, 255, 159)
 }
 
 /* =================================================================== */
@@ -45,6 +39,7 @@
 }
 
 .seatAdminUserId {
+    text-align: center;
     font-size: 12px;
     overflow: hidden;
     /* 넘치는 부분 숨기기 */

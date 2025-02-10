@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.res.pla.domain.AdminControlSeatDTO;
 import com.res.pla.domain.SeatDTO;
 import com.res.pla.domain.UserPurchasedProductDTO;
 import com.res.pla.service.SeatFacade;
@@ -237,7 +238,6 @@ public class SeatController {
 			UserPurchasedProductDTO upp = uppservice.selectInUsedTrueUpp(id);
 			String upp_code = upp.getUpp_code();
 
-			String adminRequest = Data.get("adminRequest");
 			//			String pType = upp.getP_type();
 
 			int usedSeatNum = seatservice.selectSeatById(id).getSeat_num();
@@ -263,6 +263,7 @@ public class SeatController {
 			throw e;
 		}
 
+		//			String adminRequest = Data.get("adminRequest");
 		//		if (pType.equals("f") && adminRequest == null) {
 		//			return ResponseEntity.status(HttpStatus.FORBIDDEN).body("you don't. request to Admin "); // 403
 		//		}
@@ -288,5 +289,44 @@ public class SeatController {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).body("no content");
 		}
 
+	}
+
+	//====[관리자 좌석관리]==================================================================================
+	@GetMapping("/allSeatsAdmin")
+	public ResponseEntity<?> allSeatsAdmin() {
+		try {
+			log.info("allSeatsAdmin");
+			List<AdminControlSeatDTO> seatLists = seatservice.allSeatsAdmin();
+
+			return ResponseEntity.ok(seatLists);
+		} catch (Exception e) {
+			throw e;
+
+		}
+	}
+
+	//	============================================================================================================
+	@PostMapping(value = "/forcedOut")
+	public ResponseEntity<?> forcedOut(@RequestBody Map<String, String> Data) {
+		try {
+			log.info("체크아웃 요청 데이터 : " + Data.toString());
+
+			String id = Data.get("id");
+			int seat_num = Integer.parseInt(Data.get("seat_num"));
+			String upp_code = Data.get("upp_code");
+
+			String uppPType = uppservice.selectUppByUppcode(upp_code).getP_type();
+
+			log.info("강퇴전, Data확인 (num/id/ptype/upp) : " + seat_num + " / " + id + " / " + uppPType + " / " + upp_code);
+
+			seatfacade.forcedOut(seat_num, id, upp_code, uppPType);
+
+			log.info("강퇴 성공");
+			return ResponseEntity.ok().build();
+
+		} catch (Exception e) {
+			log.info("checkOut 예외처리 : " + e.toString());
+			throw e;
+		}
 	}
 }

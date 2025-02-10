@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,8 @@ import com.res.pla.mapper.UsageHistoryMapper;
 import com.res.pla.mapper.UserMapper;
 import com.res.pla.mapper.UserPurchasedProductMapper;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -33,6 +36,10 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	PasswordEncoder encoder;
+
+	SessionRegistry sessionRegistry;
+	HttpServletRequest request;
+	HttpServletResponse response;
 
 	@Override
 	public List<UserDTO> selectAllUsers() {
@@ -123,29 +130,52 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean ben(String id, boolean ben, String cause) {
-		log.info("ben 값: {}", ben);
+		log.info("원래 ben 값: {}", ben);
 
 		int converted;
 		int caused;
 		int benCount;
 
 		if (ben == true) {
+			log.info("현재 금지를 해제하고있습니다 용사님!");
 			converted = usermapper.convertIsBenned(id, false);
+			caused = usermapper.updateUnbenCause(id, cause);
+
+			return converted > 0 && caused > 0;
+
+		} else if (ben == false) {
+			log.info("지금 바로!! 금지조치를 취하고 있사옵니다 !전하!");
+			converted = usermapper.convertIsBenned(id, true);
 			caused = usermapper.updateBenCause(id, cause);
 			benCount = usermapper.benCountUp(id);
 
 			return converted > 0 && caused > 0 && benCount > 0;
-
-		} else if (ben == false) {
-			converted = usermapper.convertIsBenned(id, true);
-			caused = usermapper.updateBenCause(id, cause);
-
-			return converted > 0 && caused > 0;
-
 		} else {
 
 			return false;
 		}
 	}
+
+	//	@Override
+	//	public void forceLogout(String userId) {
+	//		SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+	//
+	//		// 모든 로그인 세션에 대해 로그아웃 처리
+	//		List<Object> allPrincipals = sessionRegistry.getAllPrincipals();
+	//
+	//
+	//		for (Object principal : allPrincipals) {
+	//			if (principal instanceof UserDetails userDetails) {
+	//				if (userDetails.getUsername().equals(userId)) {
+	//
+	//					// 현재 인증 정보를 가져와서 로그아웃
+	//					Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	//					SecurityContextHolder.getContext().setAuthentication(null); // 인증 정보 제거
+	//					logoutHandler.logout(request, response, authentication); // 로그아웃 처리
+	//					break;
+	//				}
+	//			}
+	//		}
+	//	}
 
 }

@@ -3,9 +3,12 @@ import './MainHomeHeader.css';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 function MainHomeHeader() {
     const [loginID, setLoginID] = useState(sessionStorage.getItem('loginID'));
+
+    // const [time, setTime] = useState(new Date());
 
     useEffect(() => {
         const updateLoginID = () => {
@@ -14,34 +17,47 @@ function MainHomeHeader() {
 
         updateLoginID();
 
-        const interval = setInterval(updateLoginID, 20); // Check every 100ms
+        const interval = setInterval(updateLoginID, 60000); // 1분 마다 체크
 
         return () => {
             clearInterval(interval);
         };
     }, []);
 
-    const [aeee, ssaeee] = useState('init');
-    const [nu, setnu] = useState(0);
+    // =======[Clock]========================================================================================
+    // useEffect(() => {
+    //     const inTime = setInterval(() => {
+    //         setTime(new Date());
+    //     }, 1000);
+    //     return (() => clearInterval(inTime))
+    // }, []);
 
-    function allClear() {
-        axios
-            .get(`/user/abcde`)
-            .then((r) => {
-                ssaeee('allClear');
-                setnu((prevNu) => {
-                    if (prevNu >= 9999) {
-                        return 0;  // 0으로 초기화하고 100을 추가한 값
-                    } else {
-                        return prevNu + 100;
-                    }
-                });
-            })
-            .catch((e) => {
-                alert(`FailedClear. Please Refactoring.`);
-                ssaeee(`FailedClear. Please Refactoring.`);
-            });
-    }
+    const formatDate = (dateString) => {
+        return moment(dateString).format('YYYY-MM-DD / HH시 mm분 ss초');
+    };
+
+
+
+    // const [aeee, ssaeee] = useState('init');
+    // const [nu, setnu] = useState(0);
+    // function allClear() {
+    //     axios
+    //         .get(`/user/abcde`)
+    //         .then((r) => {
+    //             ssaeee('allClear');
+    //             setnu((prevNu) => {
+    //                 if (prevNu >= 9999) {
+    //                     return 0;  // 0으로 초기화하고 100을 추가한 값
+    //                 } else {
+    //                     return prevNu + 100;
+    //                 }
+    //             });
+    //         })
+    //         .catch((e) => {
+    //             alert(`FailedClear. Please Refactoring.`);
+    //             ssaeee(`FailedClear. Please Refactoring.`);
+    //         });
+    // }
 
 
     return (
@@ -61,6 +77,11 @@ function MainHomeHeader() {
                         <span className='homeHeaderTitle'> RESPLA 스터디카페 </span>
                     </Link>
                 </div>
+
+                {/* <div>
+                    <h1>Clock</h1>
+                    <span>{formatDate(time)}</span>
+                </div> */}
 
                 {/* <div>
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>

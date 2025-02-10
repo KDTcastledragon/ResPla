@@ -59,7 +59,9 @@ function UserBenModal({ benData, setBenData }) {
                 </div>
 
                 <div className='benCauseBox'>
-                    <div><span> {benData.isBenned === false ? '금지 사유' : benData.isBenned === true ? '금지 해제 사유' : '오류'}</span></div>
+                    <div>
+                        <span> {benData.isBenned === false ? '금지 사유' : benData.isBenned === true ? '금지 해제 사유' : '오류'}</span>
+                    </div>
                     <textarea name="causeBen" id="causeben"
                         value={benCauseText}
                         onChange={(e) => setBenCauseText(e.target.value)}

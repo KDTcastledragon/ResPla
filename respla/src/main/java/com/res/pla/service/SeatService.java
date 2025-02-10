@@ -2,6 +2,7 @@ package com.res.pla.service;
 
 import java.util.List;
 
+import com.res.pla.domain.AdminControlSeatDTO;
 import com.res.pla.domain.SeatDTO;
 
 public interface SeatService {
@@ -26,4 +27,5 @@ public interface SeatService {
 
 	boolean truncateSeat(String id);
 
+	List<AdminControlSeatDTO> allSeatsAdmin();
 }

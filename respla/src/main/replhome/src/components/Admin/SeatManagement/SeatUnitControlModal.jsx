@@ -1,6 +1,7 @@
 import './SeatUnitControlModal.css';
 
 import axios from 'axios';
+import moment from 'moment';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,6 +12,10 @@ function SeatUnitControlModal(props) {
 
     const [searchWord, setSearchWord] = useState();
     const [seatData, setSeatData] = useState({});
+
+    const formatDate = (dateString) => {
+        return moment(dateString).format('YYYY-MM-DD # HH:mm:ss');
+    };
 
 
     //=====[1. 퇴실]====================================================
@@ -24,8 +29,8 @@ function SeatUnitControlModal(props) {
         axios
             .post(`/seat/checkOut`, checkOutData)
             .then((response) => {
-                alert(`퇴실처리 되었습니다.`, response.data);
                 window.location.reload();
+                alert(`퇴실처리 되었습니다.`, response.data);
             }).catch((error) => {
                 console.log(`체크아웃 실패`, error.message);
                 alert(`체크아웃실패`, error.message);
@@ -33,21 +38,21 @@ function SeatUnitControlModal(props) {
     }
 
     //=====[2. 완전 퇴실]====================================================
-    function comepleteCheckOut(ID, NUM, UPP) {
-        const checkOutData = {
+    function forcedOut(ID, NUM, UPP) {
+        const forcedOutData = {
             id: ID,
             seat_num: NUM,
             upp_code: UPP
         }
 
         axios
-            .post(`/seat/comepleteCheckOut`, checkOutData)
+            .post(`/seat/forcedOut`, forcedOutData)
             .then((response) => {
-                alert(`퇴실처리 되었습니다.`, response.data);
+                alert(`강퇴처리 완료.`);
                 window.location.reload();
             }).catch((error) => {
-                console.log(`체크아웃 실패`, error.message);
-                alert(`완전 퇴실실패`);
+                console.log(`강퇴 실패`, error.message);
+                alert(`강퇴 실패`);
             });
     }
 
@@ -71,88 +76,136 @@ function SeatUnitControlModal(props) {
     //===================================================================================================
     return (
         <div className='SeatUnitControlContainerBackground'>
-            <div className="SeatModalContainer">
-                {sItem === 'click' && props.id !== null ?
-                    <div className="seatModalContentBox">
-                        <div className='adminSeatNumber'>
-                            <span>좌석 번호 </span>
-                            <span> : </span>
-                            <span>{props.seat_num}</span>
-                        </div>
-                        <div>
-                            <span>ID : </span>
-                            <span>{props.id !== null ? props.id : '빈자리'}</span>
-                        </div>
-                        <div>
-                            <span>uppCode : </span>
-                            <span>{props.upp_code}</span>
-                        </div>
-                        <div>
-                            <button className='checkOutConfirm' onClick={() => checkOutRequest(props.id, props.seat_num, props.upp_code)}>퇴실</button>
-                            <button className='checkOutConfirm' onClick={() => comepleteCheckOut(props.id, props.seat_num, props.upp_code)}>완전 퇴실</button>
-                        </div>
-                    </div>
+            <div className="SeatUnitControlModalContainer">
+                {sItem === 'click' && props.id !== null && props.upp_code !== null ?
+                    <>
 
-                    : sItem === 'click' && props.id === null ?
+                        <div className="seatModalContentBox">
+                            <div className='adminSeatNumber'>
+                                <span>{`<`}&nbsp;</span>
+                                <span>{props.seat_num}</span>
+                                <span>&nbsp;{`>`}</span>
+                            </div>
+                            <div className='adminSeatId'>
+                                <span>ID</span>
+                                <span>&nbsp; : &nbsp;</span>
+                                <span>{props.id !== null ? props.id : '빈자리'}</span>
+                            </div>
+
+                            <div className='adminSeatPassInfo'>
+                                <div className='adminSeatPType'>
+                                    <span>{props.p_type === 'm' ? '시간권'
+                                        : props.p_type === 'd' ? '기간권' : props.p_type === 'f' ? '고정석' : ''}
+                                    </span>
+                                    <span>&nbsp;</span>
+                                    <span>{`[`}</span>
+                                    <span>{props.p_type === 'm' ? props.time_value / 60
+                                        : props.p_type === 'd' ? props.day_value / 24 : props.p_type === 'f' ? props.day_value / 24 / 7 : ''}
+                                    </span>
+                                    <span>{props.p_type === 'm' ? '시간' : props.p_type === 'd' ? '일' : props.p_type === 'f' ? '주' : ''}</span>
+                                    <span>{`]`}</span>
+                                    <span>&nbsp; / &nbsp;</span>
+                                    <span>{props.upp_code}</span>
+                                </div>
+                                <div className='adminSeatTimeDayValue'>
+                                    {props.p_type === 'm' ? <span>{props.available_time}</span>
+                                        : props.p_type === 'd' || props.p_type === 'f' ?
+                                            <>
+                                                <span>{formatDate(props.start_date)}</span>
+                                                <span>&nbsp; ~ &nbsp;</span>
+                                                <span>{formatDate(props.end_date)}</span>
+                                            </>
+                                            : ''
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div className='adminSeatButtonBox'>
+                            <button className='checkOutConfirm' onClick={() => checkOutRequest(props.id, props.seat_num, props.upp_code)}>퇴실</button>
+                            <button className='forcedOutConfirm' onClick={() => forcedOut(props.id, props.seat_num, props.upp_code)}>강퇴</button>
+                        </div>
+                        <div className='adminSeatCloseButtonBox'>
+                            <button onClick={() => props.setSeatUnitControlModalOpen(false)}>닫기</button>
+
+                        </div>
+
+                    </>
+
+                    : sItem === 'click' && props.id === null && props.upp_code ?
                         <div className="seatModalContentBox">
                             <div>빈자리</div>
+                            <div className='adminSeatCloseButtonBox'>
+                                <button onClick={() => props.setSeatUnitControlModalOpen(false)}>닫기</button>
+
+                            </div>
                         </div>
 
                         : sItem === 'search' ?
-                            <div className="seatModalContentBox">
-                                <div>
-                                    <span className='userListSearchTitle'>유저/좌석 정보</span>
+                            <>
+                                <div className="seatModalContentBox">
+                                    <div className='adminSeatNumber'>
+                                        <span>{`<`}&nbsp;</span>
+                                        <span>{seatData.seat_num}</span>
+                                        <span>&nbsp;{`>`}</span>
+                                    </div>
+                                    <div className='adminSeatId'>
+                                        <span>ID</span>
+                                        <span>&nbsp; : &nbsp;</span>
+                                        <span>{seatData.id !== null ? seatData.id : ''}</span>
+                                    </div>
+
+                                    <div className='adminSeatPassInfo'>
+                                        <div className='adminSeatPType'>
+                                            <span>{seatData.p_type === 'm' ? '시간권'
+                                                : seatData.p_type === 'd' ? '기간권' : seatData.p_type === 'f' ? '고정석' : ''}
+                                            </span>
+                                            <span>&nbsp;</span>
+                                            <span>{`[`}</span>
+                                            <span>{seatData.p_type === 'm' ? seatData.time_value / 60
+                                                : seatData.p_type === 'd' ? seatData.day_value / 24 : seatData.p_type === 'f' ? seatData.day_value / 24 / 7 : ''}
+                                            </span>
+                                            <span>{seatData.p_type === 'm' ? '시간' : seatData.p_type === 'd' ? '일' : seatData.p_type === 'f' ? '주' : ''}</span>
+                                            <span>{`]`}</span>
+                                            <span>&nbsp; / &nbsp;</span>
+                                            <span>{seatData.upp_code}</span>
+                                        </div>
+                                        <div className='adminSeatTimeDayValue'>
+                                            {seatData.p_type === 'm' ? <span>{seatData.available_time}</span>
+                                                : seatData.p_type === 'd' || seatData.p_type === 'f' ?
+                                                    <>
+                                                        <span>{formatDate(seatData.start_date)}</span>
+                                                        <span>&nbsp; ~ &nbsp;</span>
+                                                        <span>{formatDate(seatData.end_date)}</span>
+                                                    </>
+                                                    : ''
+
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='adminSeatButtonBox'>
+                                    <button className='checkOutConfirm' onClick={() => checkOutRequest(seatData.id, seatData.seat_num, seatData.upp_code)}>퇴실</button>
+                                    <button className='forcedOutConfirm' onClick={() => forcedOut(seatData.id, seatData.seat_num, seatData.upp_code)}>강퇴</button>
+                                </div>
+                                <div className='adminSeatCloseButtonBox'>
+                                    <button onClick={() => props.setSeatUnitControlModalOpen(false)}>닫기</button>
+                                </div>
+                                <div className='userSeatSearchBox'>
+                                    <span className='userSeatSearchTitle'>ID/좌석</span>
                                     <input
                                         type="text"
-                                        className='userListSearchInputText'
+                                        className='userSeatSearchInputText'
                                         value={searchWord}
                                         onChange={(e) => setSearchWord(e.target.value)}
                                     />
-                                    <button className='userListSearchButton' onClick={searchSeat}>검색</button>
+                                    <button className='userSeatSearchButton' onClick={searchSeat}>검색</button>
                                 </div>
-
-                                <div>
-                                    <span>좌석 번호 </span>
-                                    <span> : </span>
-                                    <span>{seatData.seat_num}</span>
-                                </div>
-
-                                {seatData.id !== null ?
-                                    <>
-                                        <div>
-                                            <span>ID : </span>
-                                            <span>{seatData.id}</span>
-                                        </div>
-                                        <div>
-                                            <span>uppCode : </span>
-                                            <span>{seatData.upp_code}</span>
-                                        </div>
-
-                                        <div>
-                                            <button className='checkOutConfirm'
-                                                onClick={() => checkOutRequest(seatData.id, seatData.seat_num, seatData.upp_code)}>
-                                                퇴실
-                                            </button>
-                                            <button className='checkOutConfirm'
-                                                onClick={() => comepleteCheckOut(seatData.id, seatData.seat_num, seatData.upp_code)}>
-                                                완전 퇴실
-                                            </button>
-                                        </div>
-                                    </>
-                                    :
-                                    <>
-                                        <div>빈자리</div>
-                                    </>
-                                }
-                            </div>
-
+                            </>
                             : null
                 }
-                <div>
-                    <button onClick={() => props.setSeatUnitControlModalOpen(false)}>닫기</button>
-                </div>
             </div>
-        </div>
+        </div >
     )
 };
 

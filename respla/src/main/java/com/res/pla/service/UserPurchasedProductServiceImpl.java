@@ -179,6 +179,7 @@ public class UserPurchasedProductServiceImpl implements UserPurchasedProductServ
 		log.info("");
 
 		// 0. 사용중인 좌석번호 확인
+		log.info("autoCheckOutWhenCheckedIn [자동 체크아웃] 실행");
 		int usedSeatNum = seatmapper.selectSeatById(id).getSeat_num();
 
 		// 1. 기존 좌석 비움
