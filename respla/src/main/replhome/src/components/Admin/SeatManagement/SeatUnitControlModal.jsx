@@ -79,7 +79,6 @@ function SeatUnitControlModal(props) {
             <div className="SeatUnitControlModalContainer">
                 {sItem === 'click' && props.id !== null && props.upp_code !== null ?
                     <>
-
                         <div className="seatModalContentBox">
                             <div className='adminSeatNumber'>
                                 <span>{`<`}&nbsp;</span>
@@ -132,15 +131,19 @@ function SeatUnitControlModal(props) {
 
                     </>
 
-                    : sItem === 'click' && props.id === null && props.upp_code ?
+                    : sItem === 'click' && props.id === null && props.upp_code === null ?
                         <div className="seatModalContentBox">
-                            <div>빈자리</div>
+                            <div className='adminSeatNumber'>
+                                <span>{`<`}&nbsp;</span>
+                                <span>{props.seat_num}</span>
+                                <span>&nbsp;{`>`}</span>
+                            </div>
+                            <div className='adminSeatvacated'><span>빈자리</span></div>
                             <div className='adminSeatCloseButtonBox'>
                                 <button onClick={() => props.setSeatUnitControlModalOpen(false)}>닫기</button>
 
                             </div>
                         </div>
-
                         : sItem === 'search' ?
                             <>
                                 <div className="seatModalContentBox">
@@ -191,6 +194,8 @@ function SeatUnitControlModal(props) {
                                 <div className='adminSeatCloseButtonBox'>
                                     <button onClick={() => props.setSeatUnitControlModalOpen(false)}>닫기</button>
                                 </div>
+
+
                                 <div className='userSeatSearchBox'>
                                     <span className='userSeatSearchTitle'>ID/좌석</span>
                                     <input
@@ -202,9 +207,12 @@ function SeatUnitControlModal(props) {
                                     <button className='userSeatSearchButton' onClick={searchSeat}>검색</button>
                                 </div>
                             </>
+
                             : null
                 }
             </div>
+
+
         </div >
     )
 };

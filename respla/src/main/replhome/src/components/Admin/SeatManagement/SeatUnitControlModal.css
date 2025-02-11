@@ -140,12 +140,18 @@
 /* ===========검색=================================== */
 .userSeatSearchBox {
     width: 500px;
-    height: 60px;
-    position: fixed;
-    top: 20%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgb(252, 158, 251);
+    height: 80px;
+    margin-top: 36px;
+    background-color: rgb(159, 242, 255);
+}
 
-
+/* ============adminSeatvacated */
+.adminSeatvacated {
+    width: 480px;
+    height: 200px;
+    /* background-color: aqua; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
 }
