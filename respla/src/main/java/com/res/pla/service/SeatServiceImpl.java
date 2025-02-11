@@ -47,30 +47,6 @@ public class SeatServiceImpl implements SeatService {
 	}
 
 	@Override
-	public SeatDTO selectSeatBySearchWord(String word) {
-		log.info(word);
-		UserDTO user = usermapper.selectBySearchWordCorrectlyOne(word);
-		log.info("user : {}", user);
-
-		if (user != null) {
-			return seatmapper.selectSeatById(user.getId());
-
-		} else if (isNumeric(word)) {
-			int seatNum = Integer.parseInt(word);
-			SeatDTO seat = seatmapper.selectSeat(seatNum);
-
-			if (seat != null) {
-				return seat;
-
-			} else {
-				return null;
-			}
-		} else {
-			return null;
-		}
-	}
-
-	@Override
 	public boolean selectOccupiedSeatById(String id) {
 		return seatmapper.occupiedSeatById(id);
 	}
@@ -159,6 +135,79 @@ public class SeatServiceImpl implements SeatService {
 		} // for
 
 		return adminSeatList;
+	}
+
+	@Override
+	public AdminControlSeatDTO selectSeatBySearchWord(String word) {
+		log.info(word);
+		AdminControlSeatDTO adminControlSeat = new AdminControlSeatDTO();
+
+		UserDTO user = usermapper.selectBySearchWordCorrectlyOne(word);
+		log.info("user : {}", user);
+
+		if (user != null) {
+			SeatDTO existedSeat = seatmapper.selectSeatById(user.getId());
+
+			if (existedSeat != null) {
+				adminControlSeat.setSeat_num(existedSeat.getSeat_num());
+				adminControlSeat.setOccupied(existedSeat.isOccupied());
+				adminControlSeat.setId(existedSeat.getId());
+				adminControlSeat.setUpp_code(existedSeat.getUpp_code());
+
+				UserPurchasedProductDTO upp = uppmapper.selectUppByUppcode(existedSeat.getUpp_code());
+
+				adminControlSeat.setP_type(upp.getP_type());
+				adminControlSeat.setTime_value(upp.getTime_value());
+				adminControlSeat.setUsed_time(upp.getUsed_time());
+				adminControlSeat.setAvailable_time(upp.getAvailable_time());
+				adminControlSeat.setDay_value(upp.getDay_value());
+				adminControlSeat.setStart_date(upp.getStart_date());
+				adminControlSeat.setEnd_date(upp.getEnd_date());
+
+				return adminControlSeat;
+			} else {
+				return null;
+			}
+
+		} else if (isNumeric(word)) {
+			int seatNum = Integer.parseInt(word);
+			SeatDTO seat = seatmapper.selectSeat(seatNum);
+
+			if (seat != null) {
+				adminControlSeat.setSeat_num(seat.getSeat_num());
+				adminControlSeat.setOccupied(seat.isOccupied());
+				adminControlSeat.setId(seat.getId());
+				adminControlSeat.setUpp_code(seat.getUpp_code());
+
+				UserPurchasedProductDTO upp = uppmapper.selectUppByUppcode(seat.getUpp_code());
+
+				if (upp != null) {
+					adminControlSeat.setP_type(upp.getP_type());
+					adminControlSeat.setTime_value(upp.getTime_value());
+					adminControlSeat.setUsed_time(upp.getUsed_time());
+					adminControlSeat.setAvailable_time(upp.getAvailable_time());
+					adminControlSeat.setDay_value(upp.getDay_value());
+					adminControlSeat.setStart_date(upp.getStart_date());
+					adminControlSeat.setEnd_date(upp.getEnd_date());
+				} else {
+					adminControlSeat.setP_type(null);
+					adminControlSeat.setTime_value(0);
+					adminControlSeat.setUsed_time(0);
+					adminControlSeat.setAvailable_time(0);
+					adminControlSeat.setDay_value(0);
+					adminControlSeat.setStart_date(null);
+					adminControlSeat.setEnd_date(null);
+				}
+
+				return adminControlSeat;
+
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
+
 	}
 
 }

@@ -103,14 +103,27 @@
 }
 
 .adminSeatButtonBox>button:nth-child(1) {
-    background-color: red;
+    background-color: rgb(255, 62, 62);
     color: white;
     border: none;
+    border-radius: 10px;
+}
+
+.adminSeatButtonBox>button:nth-child(1):hover {
+    background-color: rgb(173, 0, 0);
+    cursor: pointer;
 }
 
 .adminSeatButtonBox>button:nth-child(2) {
-    background-color: black;
+    background-color: rgb(206, 0, 203);
     color: white;
+    border: none;
+    border-radius: 10px;
+}
+
+.adminSeatButtonBox>button:nth-child(2):hover {
+    background-color: rgb(138, 0, 136);
+    cursor: pointer;
 }
 
 
@@ -136,16 +149,7 @@
     cursor: pointer;
 }
 
-
-/* ===========검색=================================== */
-.userSeatSearchBox {
-    width: 500px;
-    height: 80px;
-    margin-top: 36px;
-    background-color: rgb(159, 242, 255);
-}
-
-/* ============adminSeatvacated */
+/* ============adminSeatvacated=============================================== */
 .adminSeatvacated {
     width: 480px;
     height: 200px;
@@ -154,4 +158,54 @@
     justify-content: center;
     align-items: center;
     font-size: 40px;
+}
+
+/* ===========검색=================================== */
+.userSeatSearchBox {
+    width: 500px;
+    height: 80px;
+    margin-top: 36px;
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    align-items: center;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+
+.userSeatSearchTitle {
+    display: inline-block;
+    /* background-color: rgb(97, 97, 97); */
+    color: white;
+    font-weight: bold;
+    font-size: 22px;
+    width: 100px;
+    height: 50px;
+    height: 100%;
+    line-height: 80px;
+    text-align: center;
+}
+
+.userSeatSearchBox>input {
+    width: 250px;
+    height: 50px;
+    border: none;
+    font-size: 16px;
+}
+
+.userSeatSearchBox>button {
+    display: inline-block;
+    width: 100px;
+    margin-left: 26px;
+    height: 70px;
+    background-color: rgb(0, 181, 0);
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
+
+.userSeatSearchBox>button:hover {
+    background-color: rgb(0, 145, 0);
+    cursor: pointer;
 }

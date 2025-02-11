@@ -30,12 +30,12 @@ function AdminPageMenuBar() {
             </div>
 
             <div className={`${selectedMenu === 'sls' ? ' selectedAdminMenu' : ''}`}>
-                <Link to='/SalesStatusPage' onClick={() => selectMenu('sls')}>매출 분석</Link>
+                <Link to='/SalesStatusPage' onClick={() => selectMenu('sls')}>매출 지표</Link>
             </div>
 
-            {/* <div className={`${selectedMenu === 'ush' ? ' selectedAdminMenu' : ''}`}>
-                <Link to='/SalesStatusPage' onClick={() => selectMenu('ush')}></Link>
-            </div> */}
+            <div className={`${selectedMenu === 'ush' ? ' selectedAdminMenu' : ''}`}>
+                <Link to='/UserUsageHistoryPage' onClick={() => selectMenu('ush')}>사용 기록</Link>
+            </div>
 
             {/* <div className={`${selectedMenu === 'san' ? ' selectedAdminMenu' : ''}`}>
                 <Link to='/SeatManagementPage' onClick={() => selectMenu('san')}>좌석 이용 분석</Link>

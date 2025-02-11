@@ -1,0 +1,168 @@
+.UserUsageHistoryPageContainer {
+    width: 1360px;
+    height: 580px;
+    /* background-color: rgb(255, 187, 104); */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ============================================================================ */
+.userUsageHistorySearchBox {
+    width: 370px;
+    height: 250px;
+    /* background-color: aqua; */
+}
+
+.userUsageHistoryInput {
+    margin-bottom: 3px;
+}
+
+.userUsageHistoryInput>input {
+    width: 350px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 20px;
+}
+
+.userUsageHistorySearchButton>button {
+    width: 357px;
+    height: 55px;
+    line-height: 45px;
+    font-size: 30px;
+}
+
+.userUsageHistorySearchSignpost {
+    width: 200px;
+    height: 50px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    background-color: black;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+
+/* ============================================================================== */
+.userUsageHistoryTitle {
+    width: 960px;
+    text-align: center;
+    margin: 10px auto;
+}
+
+.userUsageHistoryTitle>span {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.userUsageHistorySearchedId {
+    width: 960px;
+    margin: auto;
+    /* background-color: bisque; */
+    margin-bottom: 5px;
+}
+
+.userUsageHistorySearchedId>span {
+    font-size: 24px;
+}
+
+.userUsageHistorySearchedId>span:nth-child(2) {
+    font-weight: bold;
+}
+
+/* ============================== */
+.userUsageHistoryInfobox {
+    width: 970px;
+    /* background-color: aqua; */
+}
+
+/* ==[table 전체 설정]============================================================= */
+.UserUsageHistoryPageContainer>div>.uh_table {
+    width: 960px;
+    height: 250px;
+    /* margin: 0 auto; */
+    text-align: center;
+    border-collapse: collapse;
+    box-sizing: border-box;
+}
+
+.UserUsageHistoryPageContainer>div>table>tbody {
+    display: block;
+    overflow-y: scroll;
+    max-height: 370px;
+    height: 370px;
+    border-left: 1px solid rgb(170, 170, 170);
+    border-right: 1px solid rgb(170, 170, 170);
+    border-bottom: 1px solid rgb(170, 170, 170);
+    background-color: rgb(255, 255, 255);
+}
+
+.UserUsageHistoryPageContainer>div>table>thead,
+.UserUsageHistoryPageContainer>div>table>tbody>tr {
+    display: table;
+    width: 100%;
+}
+
+.UserUsageHistoryPageContainer>div>table>thead {
+    background-color: rgb(186, 255, 203);
+    border-bottom: 2px solid black;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.uh_table>tbody>tr {
+    border-bottom: 1px solid rgb(205, 205, 205);
+}
+
+.uh_table>tbody>tr:hover {
+    background-color: rgb(248, 248, 248) !important;
+}
+
+
+/* ===[테이블 너비 설정]=========================================================================================== */
+/* =====(1번째열)===== */
+.uh_thead>tr>th:nth-child(1) {
+    width: 150px;
+    height: 32px;
+}
+
+.uh_tbody>tr>td:nth-child(1) {
+    width: 150px;
+    height: 27px;
+}
+
+/* =====(2번째열)===== */
+.uh_thead>tr>th:nth-child(2) {
+    width: 400px;
+}
+
+.uh_tbody>tr>td:nth-child(2) {
+    width: 400px;
+}
+
+/* =====(3번째열)===== */
+.uh_thead>tr>th:nth-child(3) {
+    width: 60px;
+}
+
+.uh_tbody>tr>td:nth-child(3) {
+    width: 60px;
+}
+
+/* =====(4번째열)===== */
+.uh_thead>tr>th:nth-child(4) {
+    width: 220px;
+}
+
+.uh_tbody>tr>td:nth-child(4) {
+    width: 220px;
+}
+
+/* =====(5번째열:scroll보정값)===== */
+.uh_thead>tr>th:nth-child(5) {
+    width: 12px;
+}

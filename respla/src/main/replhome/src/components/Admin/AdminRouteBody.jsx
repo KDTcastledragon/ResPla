@@ -5,7 +5,7 @@ import AdminPage from "./AdminPage";
 import UserListPage from "./UserList/UserListPage";
 import SalesStatusPage from "./SalesStatus/SalesStatusPage";
 import SeatManagementPage from "./SeatManagement/SeatManagementPage";
-import ProductManagementPage from "./ProductManagement/ProductManagementPage";
+import UserUsageHistoryPage from "./UserUsageHistory/UserUsageHistoryPage";
 import AdminLogInPage from "./AdminLogInPage";
 
 function AdminRouteBody() {
@@ -16,7 +16,7 @@ function AdminRouteBody() {
                 <Route path='/UserListPage' element={<UserListPage />} />
                 <Route path='/SalesStatusPage' element={<SalesStatusPage />} />
                 <Route path='/SeatManagementPage' element={<SeatManagementPage />} />
-                <Route path='/ProductManagementPage' element={<ProductManagementPage />} />
+                <Route path='/UserUsageHistoryPage' element={<UserUsageHistoryPage />} />
 
                 <Route path='/AdminLogInPage' element={<AdminLogInPage />} />
             </Routes>

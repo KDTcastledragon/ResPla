@@ -13,7 +13,7 @@ public interface SeatService {
 
 	SeatDTO selectSeatById(String id);
 
-	SeatDTO selectSeatBySearchWord(String word);
+	AdminControlSeatDTO selectSeatBySearchWord(String word);
 
 	boolean selectOccupiedSeatById(String id);
 

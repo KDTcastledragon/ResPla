@@ -154,7 +154,7 @@ public class SeatFacade {
 
 	}
 
-	@Scheduled(cron = "0 39 17 * * ?") // 매일 오후 5시 10분 실행
+	@Scheduled(cron = "0 39 23 * * ?") // 매일 오후 5시 10분 실행
 	public void autoCheckOutSeats() {
 		log.info("===== 매일 오후 5시 10분: 모든 좌석 체크아웃 시작 =====");
 

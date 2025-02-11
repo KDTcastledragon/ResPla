@@ -1,4 +1,4 @@
-.SaledProductItemContainer {
+/* .SaledProductItemContainer {
     display: flex;
     flex-direction: column;
     align-items: left;
@@ -23,7 +23,6 @@
 .barTrack {
     height: 100px;
     background-color: #d2d2d2;
-    /* background-color: #bb6b6b; */
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -37,4 +36,4 @@
 .refundBar {
     background-color: #c30000;
     height: 150px;
-}
+} */

@@ -107,7 +107,15 @@ function SeatUnitControlModal(props) {
                                     <span>{props.upp_code}</span>
                                 </div>
                                 <div className='adminSeatTimeDayValue'>
-                                    {props.p_type === 'm' ? <span>{props.available_time}</span>
+                                    {props.p_type === 'm' ?
+                                        <div className='userInfoUppTimePass'>
+                                            <span>잔여시간</span>
+                                            <span>&nbsp;&nbsp;:&nbsp;&nbsp;</span>
+                                            <span>{Math.floor(props.available_time / 60)}</span>
+                                            <span>&nbsp;시간&nbsp;&nbsp;</span>
+                                            <span>{props.available_time % 60}</span>
+                                            <span>&nbsp;분</span>
+                                        </div>
                                         : props.p_type === 'd' || props.p_type === 'f' ?
                                             <>
                                                 <span>{formatDate(props.start_date)}</span>
@@ -152,53 +160,83 @@ function SeatUnitControlModal(props) {
                                         <span>{seatData.seat_num}</span>
                                         <span>&nbsp;{`>`}</span>
                                     </div>
-                                    <div className='adminSeatId'>
-                                        <span>ID</span>
-                                        <span>&nbsp; : &nbsp;</span>
-                                        <span>{seatData.id !== null ? seatData.id : ''}</span>
-                                    </div>
 
-                                    <div className='adminSeatPassInfo'>
-                                        <div className='adminSeatPType'>
-                                            <span>{seatData.p_type === 'm' ? '시간권'
-                                                : seatData.p_type === 'd' ? '기간권' : seatData.p_type === 'f' ? '고정석' : ''}
-                                            </span>
-                                            <span>&nbsp;</span>
-                                            <span>{`[`}</span>
-                                            <span>{seatData.p_type === 'm' ? seatData.time_value / 60
-                                                : seatData.p_type === 'd' ? seatData.day_value / 24 : seatData.p_type === 'f' ? seatData.day_value / 24 / 7 : ''}
-                                            </span>
-                                            <span>{seatData.p_type === 'm' ? '시간' : seatData.p_type === 'd' ? '일' : seatData.p_type === 'f' ? '주' : ''}</span>
-                                            <span>{`]`}</span>
-                                            <span>&nbsp; / &nbsp;</span>
-                                            <span>{seatData.upp_code}</span>
-                                        </div>
-                                        <div className='adminSeatTimeDayValue'>
-                                            {seatData.p_type === 'm' ? <span>{seatData.available_time}</span>
-                                                : seatData.p_type === 'd' || seatData.p_type === 'f' ?
-                                                    <>
-                                                        <span>{formatDate(seatData.start_date)}</span>
-                                                        <span>&nbsp; ~ &nbsp;</span>
-                                                        <span>{formatDate(seatData.end_date)}</span>
-                                                    </>
-                                                    : ''
+                                    {seatData.id !== null && seatData.upp_code !== null ?
+                                        <>
+                                            <div className='adminSeatId'>
+                                                <span>ID</span>
+                                                <span>&nbsp; : &nbsp;</span>
+                                                <span>{seatData.id !== null ? seatData.id : ''}</span>
+                                            </div>
+                                            <div className='adminSeatPassInfo'>
+                                                <div className='adminSeatPType'>
+                                                    <span>{seatData.p_type === 'm' ? '시간권'
+                                                        : seatData.p_type === 'd' ? '기간권' : seatData.p_type === 'f' ? '고정석' : ''}
+                                                    </span>
+                                                    <span>&nbsp;</span>
+                                                    <span>{`[`}</span>
+                                                    <span>{seatData.p_type === 'm' ? seatData.time_value / 60
+                                                        : seatData.p_type === 'd' ? seatData.day_value / 24 : seatData.p_type === 'f' ? seatData.day_value / 24 / 7 : ''}
+                                                    </span>
+                                                    <span>{seatData.p_type === 'm' ? '시간' : seatData.p_type === 'd' ? '일' : seatData.p_type === 'f' ? '주' : ''}</span>
+                                                    <span>{`]`}</span>
+                                                    <span>&nbsp; / &nbsp;</span>
+                                                    <span>{seatData.upp_code}</span>
+                                                </div>
+                                                <div className='adminSeatTimeDayValue'>
+                                                    {seatData.p_type === 'm' ?
+                                                        <div className='userInfoUppTimePass'>
+                                                            <span>잔여시간</span>
+                                                            <span>&nbsp;&nbsp;:&nbsp;&nbsp;</span>
+                                                            <span>{Math.floor(seatData.available_time / 60)}</span>
+                                                            <span>&nbsp;시간&nbsp;&nbsp;</span>
+                                                            <span>{seatData.available_time % 60}</span>
+                                                            <span>&nbsp;분</span>
+                                                        </div>
+                                                        : seatData.p_type === 'd' || seatData.p_type === 'f' ?
+                                                            <>
+                                                                <span>{formatDate(seatData.start_date)}</span>
+                                                                <span>&nbsp; ~ &nbsp;</span>
+                                                                <span>{formatDate(seatData.end_date)}</span>
+                                                            </>
+                                                            : ''
 
-                                            }
-                                        </div>
-                                    </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div className='adminSeatButtonBox'>
+                                                <button className='checkOutConfirm' onClick={() => checkOutRequest(seatData.id, seatData.seat_num, seatData.upp_code)}>퇴실</button>
+                                                <button className='forcedOutConfirm' onClick={() => forcedOut(seatData.id, seatData.seat_num, seatData.upp_code)}>강퇴</button>
+                                            </div>
+                                        </>
+                                        :
+                                        <>
+                                            <div className='adminSeatId'>
+                                                <span>{seatData.upp_code === null ? '빈자리' : '오류'}</span>
+                                            </div>
+                                            <div className='adminSeatPassInfo'>
+                                                <div className='adminSeatPType'>
+
+                                                </div>
+                                                <div className='adminSeatTimeDayValue'>
+                                                    <span>{seatData.upp_code === null ? '상품없음' : '오류'}</span>
+                                                </div>
+                                            </div>
+                                            <div className='adminSeatButtonBox'>
+                                                {/* <button className='checkOutConfirm' onClick={() => checkOutRequest(seatData.id, seatData.seat_num, seatData.upp_code)}>퇴실</button> */}
+                                                {/* <button className='forcedOutConfirm' onClick={() => forcedOut(seatData.id, seatData.seat_num, seatData.upp_code)}>강퇴</button> */}
+                                            </div>
+                                        </>
+                                    }
                                 </div>
-                                <div className='adminSeatButtonBox'>
-                                    <button className='checkOutConfirm' onClick={() => checkOutRequest(seatData.id, seatData.seat_num, seatData.upp_code)}>퇴실</button>
-                                    <button className='forcedOutConfirm' onClick={() => forcedOut(seatData.id, seatData.seat_num, seatData.upp_code)}>강퇴</button>
-                                </div>
+
                                 <div className='adminSeatCloseButtonBox'>
                                     <button onClick={() => props.setSeatUnitControlModalOpen(false)}>닫기</button>
                                 </div>
-
-
                                 <div className='userSeatSearchBox'>
                                     <span className='userSeatSearchTitle'>ID/좌석</span>
                                     <input
+                                        placeholder='ID 또는 좌석번호를 입력해주세요'
                                         type="text"
                                         className='userSeatSearchInputText'
                                         value={searchWord}

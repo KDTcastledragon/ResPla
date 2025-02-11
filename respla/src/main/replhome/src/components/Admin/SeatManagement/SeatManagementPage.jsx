@@ -17,7 +17,7 @@ function SeatManagementPage() {
             // .get(`/seat/presentAllSeats`)
             .get(`/seat/allSeatsAdmin`)
             .then((r) => {
-                console.log(`관리자 좌석 현황 성공 : ${JSON.stringify(r.data)}`);
+                // console.log(`관리자 좌석 현황 성공 : ${JSON.stringify(r.data)}`);
                 setSeatsData(r.data);
             }).catch((e) => {
                 console.log(`관리자 좌석현황 실패 : ${e.message}`);

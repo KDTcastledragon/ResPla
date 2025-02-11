@@ -277,20 +277,6 @@ public class SeatController {
 		//		else 
 	}
 
-	@GetMapping("/selectBySearchWord")
-	public ResponseEntity<?> selectBySearchWord(@RequestParam(value = "searchWord") String word) {
-		log.info("word : {}", word);
-		SeatDTO searchedSeat = seatservice.selectSeatBySearchWord(word);
-
-		if (searchedSeat != null) {
-			return ResponseEntity.ok().body(searchedSeat);
-
-		} else {
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).body("no content");
-		}
-
-	}
-
 	//====[관리자 좌석관리]==================================================================================
 	@GetMapping("/allSeatsAdmin")
 	public ResponseEntity<?> allSeatsAdmin() {
@@ -303,6 +289,21 @@ public class SeatController {
 			throw e;
 
 		}
+	}
+
+	//====[관리자 좌석관리]==================================================================================
+	@GetMapping("/selectBySearchWord")
+	public ResponseEntity<?> selectBySearchWord(@RequestParam(value = "searchWord") String word) {
+		log.info("word : {}", word);
+		AdminControlSeatDTO searchedSeat = seatservice.selectSeatBySearchWord(word);
+
+		if (searchedSeat != null) {
+			return ResponseEntity.ok().body(searchedSeat);
+
+		} else {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body("no content");
+		}
+
 	}
 
 	//	============================================================================================================

@@ -9,6 +9,7 @@ function SalesStatusPage() {
 
     const [productData, setProductData] = useState([]);
     const [maxCount, setMaxCount] = useState();
+    const [maxRevenue, setMaxRevenue] = useState();
     const [dateModalOpen, setDateModalOpen] = useState(false);
 
     const [animateBars, setAnimateBars] = useState(false);
@@ -16,16 +17,19 @@ function SalesStatusPage() {
     useEffect(() => {
         setAnimateBars(false);
         const timer = setTimeout(() => {
-            setAnimateBars(true); // 100ms 후에 애니메이션 실행
-        }, 100);
+            setAnimateBars(true); // 800ms 후에 애니메이션 실행
+        }, 700);
 
         axios
             .get(`/product/allProductList`)
             .then((r) => {
                 setProductData(r.data);
-                const maxCountValue = Math.max(...r.data.map((d) => Math.max(d.sell_count, d.refund_count)));
+                const maxCountValue = Math.max(...r.data.map((d) => Math.max(d.sell_count)));
                 setMaxCount(maxCountValue + (maxCountValue / 3));
-                // console.log(`분석데이터성공`);
+
+                const maxRevenueValue = Math.max(...r.data.map((d) => Math.max(d.sell_count * d.price)));
+                setMaxRevenue(maxRevenueValue + (maxRevenueValue / 3));
+
             }).catch((e) => {
                 alert(`실패`);
             })
@@ -44,89 +48,82 @@ function SalesStatusPage() {
     //=================================================================================================================================
     return (
         <div className='SalesStatusPageContainer'>
-            <div className=''>
-                {/* <button>상품별 기준</button> */}
-                {/* <button onClick={() => setDateModalOpen(true)}>연도별 기준</button> */}
-                <hr />
-            </div>
-            <div className='new_Area'>
-                {productData.map((d, i) => (
-                    <>
-                        <div>
-                            <div className="barTrack22">
-                                {/* <span>4567</span> */}
-                                <span>{d.sell_count}</span>
-                                {/* <div className={d.p_type === 'm' ? 'timebar' : d.p_type === 'd' ? 'daybar' : d.p_type === 'f' ? 'fixbar' : null}
-                                    style={{ height: `${(d.sell_count / maxCount) * 100}%` }}>
-                                </div> */}
-                                <div className={d.p_type === 'm' ? 'timebar' : d.p_type === 'd' ? 'daybar' : d.p_type === 'f' ? 'fixbar' : null}
-                                    style={{
-                                        height: animateBars ? `${(d.sell_count / maxCount) * 100}%` : '0',
-                                    }}>
+            <div>
+                <div className='salesStatusContentBox'>
+                    <div className='salesStandardTitle'><span>판매량 기준</span></div>
+                    <div className='salesStatusGraphBox'>
+                        {productData.slice().sort((a, b) => b.sell_count - a.sell_count).map((d, i) => (
+                            <>
+                                <div className='salesInfo'>
+                                    <div className="barTrack">
+                                        <span className='barTrackSellCount'>{d.sell_count}</span>
+                                        <div className={d.p_type === 'm' ? 'timebar' : d.p_type === 'd' ? 'daybar' : d.p_type === 'f' ? 'fixbar' : null}
+                                            style={{
+                                                height: animateBars ? `${(d.sell_count / maxCount) * 100}%` : '0',
+                                            }}>
+                                        </div>
+                                    </div>
+                                    <div className='barTrackProductInfo'>
+                                        <div className='barTrackProductType'>
+                                            <span>{d.p_type === 'm' ? '시간' : d.p_type === 'd' ? '기간' : d.p_type === 'f' ? '고정' : null}</span>
+                                            <span>{`(`}</span>
+                                            <span>{d.p_type === 'm' ? d.time_value / 60 : d.p_type === 'd' ? d.day_value / 24 : d.p_type === 'f' ? d.day_value / 24 / 7 : null}</span>
+                                            <span>{`)`}</span>
+                                        </div>
+                                        <div className='barTrackProductPrice'>
+                                            <span>{d.price !== null ? d.price.toLocaleString() : null}</span>
+                                            <span>원</span>
+                                        </div>
+
+                                    </div>
+
                                 </div>
-                            </div>
-                            <div>{d.p_type === 'm' ? 'T' : d.p_type === 'd' ? 'D' : d.p_type === 'f' ? 'F' : null}</div>
-                            <div>{d.p_type === 'm' ? d.time_value : d.day_value}</div>
-                            <div>{d.price}</div>
-                        </div>
-                    </>
-                ))}
-            </div>
-            {/* <div className='saledTimePassList'>
-
-                {productData.filter(d => d.p_type === 'm').map((d, i) => (
-                    <SaledProductItem
-                        key={i}
-                        product_code={d.product_code}
-                        p_type={d.p_type}
-                        time_value={d.time_value}
-                        day_value={d.day_value}
-                        price={d.price}
-                        sell_count={d.sell_count}
-                        refund_count={d.refund_count}
-                        maxCount={maxCount}
-                    />
-                ))}
-            </div>
-            <div className='saledDayPassList'>
-                {productData.filter(d => d.p_type === 'd').map((d, i) => (
-                    <SaledProductItem
-                        key={i}
-                        product_code={d.product_code}
-                        p_type={d.p_type}
-                        time_value={d.time_value}
-                        day_value={d.day_value}
-                        price={d.price}
-                        sell_count={d.sell_count}
-                        refund_count={d.refund_count}
-                        maxCount={maxCount}
-                    />
-                ))}
-            </div>
-            <div className='saledFixedList'>
-                {productData.filter(d => d.p_type === 'f').map((d, i) => (
-                    <SaledProductItem
-                        key={i}
-                        product_code={d.product_code}
-                        p_type={d.p_type}
-                        time_value={d.time_value}
-                        day_value={d.day_value}
-                        price={d.price}
-                        sell_count={d.sell_count}
-                        refund_count={d.refund_count}
-                        maxCount={maxCount}
-                    />
-                ))}
-            </div> */}
-            <div className='sales'></div>
-
-            {
-                dateModalOpen && (
-                    <div className='dateModalContainer'>
-
+                            </>
+                        ))}
                     </div>
-                )
-            }
+                </div>
+
+                <div className='salesStatusContentBox'>
+                    <div className='salesStandardTitle'><span>상품별 매출액 기준</span></div>
+                    <div className='salesStatusGraphBox'>
+                        {productData.slice().sort((a, b) => b.price * b.sell_count - a.price * a.sell_count).map((d, i) => (
+                            <>
+                                <div className='salesInfo'>
+                                    <div className="barTrack">
+                                        <span className='barTrackRevenue'><span>{d.price !== null ? (d.sell_count * d.price).toLocaleString() : null}</span></span>
+                                        <div className={d.p_type === 'm' ? 'timebar' : d.p_type === 'd' ? 'daybar' : d.p_type === 'f' ? 'fixbar' : null}
+                                            style={{
+                                                height: animateBars ? `${(d.sell_count * d.price / maxRevenue) * 100}%` : '0',
+                                            }}>
+                                        </div>
+                                    </div>
+                                    <div className='barTrackProductInfo'>
+                                        <div className='barTrackProductType'>
+                                            <span>{d.p_type === 'm' ? '시간' : d.p_type === 'd' ? '기간' : d.p_type === 'f' ? '고정' : null}</span>
+                                            <span>{`(`}</span>
+                                            <span>{d.p_type === 'm' ? d.time_value / 60 : d.p_type === 'd' ? d.day_value / 24 : d.p_type === 'f' ? d.day_value / 24 / 7 : null}</span>
+                                            <span>{`)`}</span>
+                                        </div>
+                                        <div className='barTrackProductPrice'>
+                                            <span>{d.price !== null ? d.price.toLocaleString() : null}</span>
+                                            <span>원</span>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            <div className='salesTotalRevenueBox'>
+                <div className='salesTotalRevenueTitle'><span>총 매출액</span></div>
+                <div className='salesTotalRevenue'>
+                    <span>{productData.reduce((total, d) => total + (d.sell_count * d.price), 0).toLocaleString()}</span>
+                </div>
+            </div>
         </div >
     )
 }
