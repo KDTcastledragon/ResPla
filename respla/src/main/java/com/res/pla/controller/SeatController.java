@@ -330,4 +330,38 @@ public class SeatController {
 			throw e;
 		}
 	}
+
+	//	====[3. 퇴실]==========================================================================================
+	@PostMapping(value = "/adminCheckOut")
+	public ResponseEntity<?> adminCheckOut(@RequestBody Map<String, String> Data) {
+		try {
+			log.info("체크아웃 요청 데이터 : " + Data.toString());
+
+			String id = Data.get("id");
+			int seat_num = Integer.parseInt(Data.get("seat_num"));
+			String upp_code = Data.get("upp_code");
+
+			String uppPType = uppservice.selectUppByUppcode(upp_code).getP_type();
+
+			boolean isUserCheckedIn = seatfacade.isUserCheckedIn(id); // 입실 여부 확인 // 중요한 작업이라 한번 더 확인함.
+
+			log.info("체크아웃 작업 전, Data확인 (num/id/ptype/upp) : " + seat_num + " / " + id + " / " + uppPType + " / " + upp_code);
+
+			if (isUserCheckedIn == true && upp_code != null) {
+				log.info("체크인여부 , 사용upp 확인. 체크아웃 작업 시작");
+
+				seatfacade.adminCheckOut(seat_num, id, upp_code, uppPType);
+
+				log.info("체크아웃 성공");
+				return ResponseEntity.ok().build();
+
+			} else {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("you need to checkin First "); // 403
+			}
+
+		} catch (Exception e) {
+			log.info("checkOut 예외처리 : " + e.toString());
+			throw e;
+		}
+	}
 }

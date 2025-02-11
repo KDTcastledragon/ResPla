@@ -27,7 +27,7 @@ function SeatUnitControlModal(props) {
         }
 
         axios
-            .post(`/seat/checkOut`, checkOutData)
+            .post(`/seat/adminCheckOut`, checkOutData)
             .then((response) => {
                 window.location.reload();
                 alert(`퇴실처리 되었습니다.`, response.data);

@@ -205,4 +205,38 @@ public class SeatFacade {
 		}
 	}
 
+	public boolean adminCheckOut(int usedSeatNum, String id, String usedUppcode, String pType) {
+		log.info("");
+
+		int isConvertInUsedFalse = uppservice.convertInUsed(id, usedUppcode, false);
+		int isRecordedUsage = uhservice.recordAction(id, usedSeatNum, "adminCheckOut", usedUppcode);
+
+		if (pType.equals("m")) {
+
+			int isVacated = seatservice.vacateSeat(usedSeatNum, id, usedUppcode);
+			boolean isStartCalculateTimePass = false;
+			uppservice.stopCalculateTimePass(id, usedUppcode);
+			isStartCalculateTimePass = true;
+
+			log.info("SeatFacade 시간권 체크아웃");
+			return (isVacated > 0) && (isConvertInUsedFalse > 0) && (isRecordedUsage > 0) && isStartCalculateTimePass;
+
+		} else if (pType.equals("d")) {
+
+			int isVacated = seatservice.vacateSeat(usedSeatNum, id, usedUppcode);
+
+			log.info("SeatFacade 기간권 체크아웃");
+			return (isVacated > 0) && (isConvertInUsedFalse > 0) && (isRecordedUsage > 0);
+
+		} else if (pType.equals("f")) {
+			log.info("SeatFacade 고정석 체크아웃");
+			int isConvertOccupied = seatservice.convertOccupied(usedSeatNum, id, usedUppcode, false);
+
+			return (isConvertInUsedFalse > 0) && (isRecordedUsage > 0) && (isConvertOccupied > 0);
+		}
+
+		log.info("SeatFacade 체크아웃 pType 오류");
+		return false;
+	}
+
 }
