@@ -22,8 +22,9 @@ function SaledProductItem2({ product_code, p_type, time_value, day_value, price,
                 </div>
             </div>
             <div>
+
                 {p_type === 'm' ?
-                    <>
+                    <>e
                         <span>시간권</span>
                         <span>&nbsp;{`[ ${time_value / 60} ]`}</span>
                     </>
