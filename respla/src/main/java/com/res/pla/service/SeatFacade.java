@@ -154,19 +154,19 @@ public class SeatFacade {
 
 	}
 
-	@Scheduled(cron = "0 39 23 * * ?") // 매일 오후 5시 10분 실행
-	public void autoCheckOutSeats() {
-		log.info("===== 매일 오후 5시 10분: 모든 좌석 체크아웃 시작 =====");
+	//	@Scheduled(cron = "0 0 5 * * ?") // 매일 05시 00분 모든 좌석 퇴실
+	@Scheduled(cron = "0 0 15 * * ?") // 시연을 위해 15시 00분 모든 좌석 퇴실 설정
+	public void dailyAutoCheckOutSeats() {
 
 		// 현재 사용 중인 좌석 목록 가져오기
 		List<SeatDTO> allSeats = seatservice.presentAllSeats();
 
 		for (SeatDTO seatUnit : allSeats) {
-			int seatNumberAll = seatUnit.getSeat_num();
+			int seatNumberAll = seatUnit.getSeat_num(); // 좌석번호 가져오기
 			String id = seatUnit.getId();
 			String uppCode = seatUnit.getUpp_code();
 
-			if (id != null && uppCode != null) {
+			if (id != null && uppCode != null) { // 정상적인 입실일 경우
 				String uppPType = uppservice.selectUppByUppcode(uppCode).getP_type();
 				boolean isAutoCheckedOut = checkOutSeat(seatNumberAll, id, uppCode, uppPType);
 				log.info("isAutoCheckedOut?? : " + isAutoCheckedOut);
