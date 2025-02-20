@@ -20,6 +20,7 @@ function SaledProductItem2({ product_code, p_type, time_value, day_value, price,
                     <div className="refundBar" style={{ height: `${(refund_count / maxCount) * 100}%` }}>
                     </div>
                 </div>
+
             </div>
             <div>
 
