@@ -31,6 +31,7 @@ function SaledProductItem({ product_code, p_type, time_value, day_value, price, 
                     : p_type === 'd' ? `기간권 [ ${day_value} ]`
                         : p_type === 'f' ? `고정석 [ ${day_value} ]`
                             : 'error'}
+
                 <span>{price.toLocaleString()}</span>
             </div>
             <div>
