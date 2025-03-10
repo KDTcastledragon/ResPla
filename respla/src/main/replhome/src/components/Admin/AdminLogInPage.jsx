@@ -17,7 +17,7 @@ function AdminLogInPage() {
     function adminLogIn() {
         const data = { id: id, password: password }
         axios
-            .post(`/admin/adminLogin2`, data)
+            .post(`/admin/adminLogin`, data)
             .then((r) => {
                 console.log(r.data);
                 sessionStorage.setItem('admin_name', r.data.admin_name);
@@ -27,7 +27,7 @@ function AdminLogInPage() {
                 alert(`성공`);
                 window.location.reload();
             }).catch((e) => {
-                alert(``);
+                alert(`실패`);
             })
     }
 

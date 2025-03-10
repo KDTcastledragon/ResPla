@@ -27,8 +27,8 @@ public class AdminController {
 	PasswordEncoder encoder;
 
 	//====[로그인]============================================================================
-	@PostMapping("/adminLogin2")
-	public ResponseEntity<?> login2(@RequestBody AdminDTO data) {
+	@PostMapping("/adminLogin")
+	public ResponseEntity<?> login(@RequestBody AdminDTO data) {
 		log.info("");
 
 		String id = data.getId();
@@ -49,32 +49,32 @@ public class AdminController {
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).body("forbidden");
 		}
 	}
-
-	@PostMapping("/adminLogin")
-	public ResponseEntity<?> login(@RequestBody AdminDTO data) {
-		log.info("");
-
-		String id = data.getId();
-		String password = data.getPassword();
-
-		AdminDTO dto = admservice.selectAdmin(id);
-
-		if (dto != null) {
-			if (encoder.matches(password, dto.getPassword())) {
-				Map<String, Object> adminData = new HashMap<>();
-
-				adminData.put("admin_name", dto.getAdmin_name());
-				adminData.put("authority", dto.getAuthority());
-
-				return ResponseEntity.ok().body(adminData);
-			} else {
-				log.info("비번틀리당");
-				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("forbidden");
-			}
-		} else {
-			return ResponseEntity.status(HttpStatus.FORBIDDEN).body("forbidden");
-		}
-	}
+	//
+	//	@PostMapping("/adminLogin")
+	//	public ResponseEntity<?> login(@RequestBody AdminDTO data) {
+	//		log.info("");
+	//
+	//		String id = data.getId();
+	//		String password = data.getPassword();
+	//
+	//		AdminDTO dto = admservice.selectAdmin(id);
+	//
+	//		if (dto != null) {
+	//			if (encoder.matches(password, dto.getPassword())) {
+	//				Map<String, Object> adminData = new HashMap<>();
+	//
+	//				adminData.put("admin_name", dto.getAdmin_name());
+	//				adminData.put("authority", dto.getAuthority());
+	//
+	//				return ResponseEntity.ok().body(adminData);
+	//			} else {
+	//				log.info("비번틀리당");
+	//				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("forbidden");
+	//			}
+	//		} else {
+	//			return ResponseEntity.status(HttpStatus.FORBIDDEN).body("forbidden");
+	//		}
+	//	}
 
 	//====[로그인]============================================================================
 	@PostMapping("/createAdmin")
