@@ -39,6 +39,7 @@ function SaledProductItem({ product_code, p_type, time_value, day_value, price, 
             <div>
 
 
+
             </div>
 
         </div>
