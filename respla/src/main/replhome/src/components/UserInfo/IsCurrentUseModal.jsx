@@ -83,6 +83,7 @@ function IsCurrentUseModal({ setIsCurrentUseModal, closeTime, setCloseTime, isCu
             </div>
 
 
+
             <div className='isCurrentUseButtonBox'>
                 {cmt === '200p' || cmt === '202p' || cmt === '204ci' || cmt === '204com' ?
                     <button onClick={PurchasePage}>상품 구매</button>
