@@ -74,7 +74,7 @@ function IsCurrentUseModal({ setIsCurrentUseModal, closeTime, setCloseTime, isCu
                                             </>
                                             // : cmt === '403mf' ?
                                             //     <>
-                                            //         <span>고정석 자리이동은</span>
+                                            //         <span>고정석  자리이동은</span>
                                             //         <span>관리자에게 문의해주세요.</span>
                                             //     </>
 
