@@ -78,6 +78,7 @@ function IsCurrentUseModal({ setIsCurrentUseModal, closeTime, setCloseTime, isCu
                                             //         <span>관리자에게 문의해주세요.</span>
                                             //     </>
 
+
                                             : <span>일시적 오류</span>
 
 
