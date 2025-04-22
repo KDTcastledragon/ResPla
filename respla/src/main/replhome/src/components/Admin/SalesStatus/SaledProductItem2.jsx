@@ -24,6 +24,7 @@ function SaledProductItem2({ product_code, p_type, time_value, day_value, price,
             </div>
             <div>
 
+
                 {p_type === 'm' ?
                     <>e
                         <span>시간권</span>
