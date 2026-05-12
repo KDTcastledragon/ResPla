@@ -38,6 +38,7 @@ public class ProductController {
 	ProductService productservice;
 	UserPurchasedProductService uppservice;
 	UserService userservice;
+
 	SeatService seatservice;
 
 	//=[1]==============================================================================
