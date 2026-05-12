@@ -35,6 +35,7 @@ public class ProductServiceImpl implements ProductService {
 	public String purchaseProduct(String id, int product_code, LocalDateTime start_date, LocalDateTime end_date, boolean usable, String payment, String order_type) {
 		String randomOrderNumber = String.format("%01d", new Random().nextInt(1_000_000_000));
 		log.info("randomNum : " + randomOrderNumber);
+
 		Map<String, Object> params = new HashMap<>();
 		params.put("randomNumber", randomOrderNumber);
 		params.put("id", id);
