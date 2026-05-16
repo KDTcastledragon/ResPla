@@ -4,7 +4,13 @@ function HomeFooter() {
     return (
         <>
             <div>HomeFooter</div>
-            <div>전화번호</div>
+            <div>
+                <span>
+                    전화번호
+
+                </span>
+                <span></span>
+            </div>
         </>
     )
 }
