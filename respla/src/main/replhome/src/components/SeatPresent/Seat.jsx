@@ -1,5 +1,5 @@
-import './Seat.css';
 // import axios from 'axios';
+import './Seat.css';
 import { useState } from 'react';
 import SeatModal from './SeatModal';
 
