@@ -22,6 +22,7 @@ function Seat(props) {
                     alert(`현재 입실중인 자리입니다. 비어있는 자리를 선택해주세요.`);
 
                 }
+
                 break;
 
             case 'checkout':
