@@ -23,6 +23,7 @@ function MainHomeHeader() {
     }, []);
 
     const formatDate = (dateString) => {
+
         return moment(dateString).format('YYYY-MM-DD # HH시 mm분 ss초');
     };
 
