@@ -12,6 +12,7 @@ function JoinPage() {
     const [id, setId] = useState('');
     const [validId, setValidId] = useState(false);
 
+
     const [pw, setPw] = useState('');
     const [vaildPw, setValidPw] = useState(false);
     const [showPw, setShowPw] = useState(false);
