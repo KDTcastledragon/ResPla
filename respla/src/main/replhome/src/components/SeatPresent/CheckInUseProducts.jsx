@@ -94,6 +94,7 @@ function CheckInUseProducts({ setCheckInUseProductsOpen, checkInUseProductsOpen 
         return (
             <table className='usableProductTable'>
                 <thead>
+
                     <tr>
                         <th>상품 구분</th>
 
